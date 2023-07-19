@@ -10,9 +10,13 @@ const DirectMessage = ({ isOpen, onClose }) => {
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose} hideDragIndicator>
       <Actionsheet.Content backgroundColor={COLOR.dark} bottom="75px" h={height / 2}>
-        <HStack w="100%" h={60} justifyContent="center" alignItems="center" borderBottomColor={COLOR.gray} borderBottomWidth="0.5px">
-          <Text style={{ fontFamily: "Archivo-Bold", fontSize: 14, color: COLOR.primary }}>Direct Message</Text>
-          <TouchableOpacity style={{ position: 'absolute', right: 20 }}>
+        <HStack w="100%" h={60} justifyContent="center" marginTop="8px" position="absolute" alignItems="center">
+          <Text style={{ fontFamily: "Archivo-Bold", fontSize: 14, color: COLOR.primary }}>
+            Direct Message
+          </Text>
+        </HStack>
+        <HStack w="100%" h={60} justifyContent="flex-end" zIndex={99} alignItems="center" borderBottomColor={COLOR.gray} borderBottomWidth="0.5px">
+          <TouchableOpacity onPress={onClose} style={{ marginRight: 20 }}>
             <Ionicons name="close-outline" size={22} color={COLOR.primary} />
           </TouchableOpacity>
         </HStack>

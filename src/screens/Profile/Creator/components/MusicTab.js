@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     textTransform: "uppercase"
   },
   card: {
-    width: 173,
+    width: "49%",
     height: 270,
     borderRadius: 6,
     backgroundColor: "rgba(248, 248, 248, 0.08)",

@@ -181,7 +181,7 @@ const Marketplace = ({ navigation }) => {
             paddingY="15px"
             renderItem={({ item, index }) => {
               return (
-                <TouchableOpacity key={index}
+                <TouchableOpacity key={`voice-${index}`}
                   onPress={() => item.id === selectedVoice?.id ? setSelectedVoice(null) : setSelectedVoice(item)}
                 >
                   <Box style={{
@@ -227,7 +227,7 @@ const Marketplace = ({ navigation }) => {
                 paddingY="15px"
                 renderItem={({ item, index }) => {
                   return (
-                    <TouchableOpacity key={index} onPress={() => setSelectedBeats(item)}>
+                    <TouchableOpacity key={`${index}-beats`} onPress={() => setSelectedBeats(item)}>
                       <Box style={{
                         ...styles.cardContainer,
                         marginRight: index === BeatsData.length - 1 ? 15 : 0,
@@ -263,7 +263,7 @@ const Marketplace = ({ navigation }) => {
             paddingY="15px"
             renderItem={({ item, index }) => {
               return (
-                <TouchableOpacity key={index}
+                <TouchableOpacity key={`songs-${index}`}
                   onPress={() => item.id === selectedSong?.id ? setSelectedSong(null) : setSelectedSong(item)}
                 >
                   <Box style={{

@@ -64,7 +64,10 @@ const TabBar = ({ tabName, setTabName }) => {
         </Text>
         <View style={tabName === "videos" ? styles.activeDot : styles.dot} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setTabName("message")}>
+      <TouchableOpacity
+        onPress={() => setTabName("message")}
+        style={{ width: 42, height: 42, overflow: 'hidden' }}
+      >
         <SvgXml xml={LeftChatIcon} width={42} height={42} />
       </TouchableOpacity>
     </HStack>

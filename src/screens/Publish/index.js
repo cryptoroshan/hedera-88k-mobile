@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, HStack, Input, Text, VStack } from "native-base";
+import { Box, HStack, Input, Text, VStack, useToast } from "native-base";
 import { ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
@@ -24,6 +24,8 @@ import showToast from "../../utils/showToast";
 const Publish = ({ navigation }) => {
   const user = useSelector( state => state.user);
 
+  const toast = useToast();
+
   const [music, setMusic] = useState(null);
   const [title, setTitle] = useState(null);
   const [art, setArt] = useState(null);
@@ -34,7 +36,8 @@ const Publish = ({ navigation }) => {
       const fileResult = await DocumentPicker.getDocumentAsync({
         type: "image/*"
       });
-      setMusic({ name: fileResult.name, uri: fileResult.uri });
+      if (fileResult.type === "success")
+        setMusic({ name: fileResult.name, uri: fileResult.uri });
     } catch (error) {
       console.log(error);
     }
@@ -45,8 +48,8 @@ const Publish = ({ navigation }) => {
       const fileResult = await DocumentPicker.getDocumentAsync({
         type: "image/*"
       });
-      console.log(fileResult);
-      setArt({ name: fileResult.name, uri: fileResult.uri });
+      if (fileResult.type === "success")
+        setArt({ name: fileResult.name, uri: fileResult.uri });
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +60,8 @@ const Publish = ({ navigation }) => {
       const fileResult = await DocumentPicker.getDocumentAsync({
         type: "image/*"
       });
-      setVideo({ name: fileResult.name, uri: fileResult.uri });
+      if (fileResult.type === "success")
+        setVideo({ name: fileResult.name, uri: fileResult.uri });
     } catch (error) {
       console.log(error);
     }
@@ -65,13 +69,31 @@ const Publish = ({ navigation }) => {
 
   const checkValidation = () => {
     if (music === null) {
-      showToast("Upload Music File!");
+      toast.show({
+        render: () => {
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
+                  Upload Music File!
+                </Box>;
+        }
+      });
       return false;
     } else if (title === null || title === "") {
-      showToast("Input Title of Music!");
+      toast.show({
+        render: () => {
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
+                  Input Title of Music!
+                </Box>;
+        }
+      });
       return false;
     } else if (art === null) {
-      showToast("Upload Art Image!");
+      toast.show({
+        render: () => {
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
+                  Upload Art Image!
+                </Box>;
+        }
+      });
       return false;
     } else {
       return true;

@@ -45,7 +45,7 @@ const Library = ({ navigation, route }) => {
           </HStack>
           <Text style={styles.pageTitle}>Library</Text>
           <HStack space={4} alignItems="center">
-            <TouchableOpacity>
+            <TouchableOpacity style={{ width: 42, height: 42, overflow: 'hidden' }}>
               <SvgXml xml={LeftChatIcon} width={42} height={42} />
             </TouchableOpacity>
             <TouchableOpacity>

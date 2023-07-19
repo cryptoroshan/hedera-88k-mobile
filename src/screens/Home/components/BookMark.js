@@ -46,12 +46,24 @@ const BookMark = ({ isOpen, onClose }) => {
             >
               <HStack
                 w={width}
+                position="absolute"
                 paddingY="10px"
                 justifyContent="center"
                 alignItems="center"
+                marginTop="8px"
               >
                 <Text style={styles.title}>Add To Playlist</Text>
-                <Text style={styles.close}>___</Text>
+              </HStack>
+              <HStack
+                w={width}
+                paddingY="10px"
+                justifyContent="flex-end"
+                alignItems="center"
+                zIndex={99}
+              >
+                <TouchableOpacity onPress={onClose}>
+                  <Text style={styles.close}>___</Text>
+                </TouchableOpacity>
               </HStack>
               <Stack w="100%">
                 <TouchableOpacity onPress={() => setIsNewPlaylist(true)} style={styles.item}>
@@ -162,10 +174,7 @@ const styles = StyleSheet.create({
     fontFamily: "Archivo-Bold",
     fontSize: 10,
     color: COLOR.black,
-    textDecorationLine: "underline",
-    position: "absolute",
-    right: 30,
-    top: 5
+    marginRight: 30,
   },
   item: {
     flexDirection: "row",
