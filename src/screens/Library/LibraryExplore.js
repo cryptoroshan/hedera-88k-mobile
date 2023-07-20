@@ -40,148 +40,150 @@ const LibraryExplore = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
-      <ScrollView>
-        <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
-          <TouchableOpacity onPress={() => navigation.navigate("LibraryScreen", { from: "explore" })} style={{ marginTop: 15 }}>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
-              :
-              <LeftSvg width="13px" height="19px" />
-            }
-          </TouchableOpacity>
-          <Text style={styles.pageTitle}>Explore</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="search" />
-              :
-              <SearchSvg width="24px" height="24px" />
-            }
-          </TouchableOpacity>
-        </HStack>
-        {/* Card Image */}
-        <Center>
-          <Box style={styles.cardContainer}>
-            <Stack style={styles.cardImage}>
-              <Image
-                source={{ uri: library.image }}
-                opacity={0.8}
-                width="100%"
-                height="100%"
-                borderRadius="11px"
-                alt={library.title}
-              />
-            </Stack>
-          </Box>
-          <Text style={styles.cardTitle}>{library.title}</Text>
-        </Center>
-        {/* ToolBar */}
-        <HStack justifyContent="space-between" alignItems="center" paddingX="35px" marginTop="40px">
-          <TouchableOpacity onPress={() => navigation.navigate("LibrarySettingsScreen", { library: library })}>
-            <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="shuffle" />
-              :
-              <ShuffleSvg width="49px" height="49px" />
-            }
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            {Platform.OS === 'web' ? (
-              isPaused ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
-                : <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="pause" />
-            ) : (
-              isPaused ? <PlaySvg width="42px" height="42px" />
-                : <PauseSvg width="42px" height="42px" />
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="repeat" />
-              :
-              <RepeatSvg width="47px" height="47px" />
-            }
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/share.svg")} width="28px" height="32px" alt="share" />
-              :
-              <ShareSvg width="28px" height="32px" />
-            }
-          </TouchableOpacity>
-        </HStack>
-        {/* Music List */}
-        <VStack space={4} paddingX="35px" marginY="21px">
-          {route.params.from !== "settings" &&
-            <HStack justifyContent="space-between" alignItems="center">
-              <TouchableOpacity>
-                <HStack space={2} alignItems="center">
-                  <Box style={styles.add}>
-                    {Platform.OS === 'web' ?
-                      <Image source={require("../../../assets/icons/plus.svg")} width="28px" height="28px" alt="plus" />
-                      :
-                      <PlusSvg width="28px" height="28px" />
-                    }
-                  </Box>
-                  <Text style={styles.title}>Add Songs</Text>
-                </HStack>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
-              </TouchableOpacity>
-            </HStack>
-          }
-          {
-            MusicList.map((item, index) =>
-              <HStack justifyContent="space-between" alignItems="center" key={index}>
+    <>
+      <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
+        <ScrollView>
+          <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
+            <TouchableOpacity onPress={() => navigation.navigate("LibraryScreen", { from: "explore" })} style={{ marginTop: 15 }}>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
+                :
+                <LeftSvg width="13px" height="19px" />
+              }
+            </TouchableOpacity>
+            <Text style={styles.pageTitle}>Explore</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="search" />
+                :
+                <SearchSvg width="24px" height="24px" />
+              }
+            </TouchableOpacity>
+          </HStack>
+          {/* Card Image */}
+          <Center>
+            <Box style={styles.cardContainer}>
+              <Stack style={styles.cardImage}>
+                <Image
+                  source={{ uri: library.image }}
+                  opacity={0.8}
+                  width="100%"
+                  height="100%"
+                  borderRadius="11px"
+                  alt={library.title}
+                />
+              </Stack>
+            </Box>
+            <Text style={styles.cardTitle}>{library.title}</Text>
+          </Center>
+          {/* ToolBar */}
+          <HStack justifyContent="space-between" alignItems="center" paddingX="35px" marginTop="40px">
+            <TouchableOpacity onPress={() => navigation.navigate("LibrarySettingsScreen", { library: library })}>
+              <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="shuffle" />
+                :
+                <ShuffleSvg width="49px" height="49px" />
+              }
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
+              {Platform.OS === 'web' ? (
+                isPaused ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
+                  : <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="pause" />
+              ) : (
+                isPaused ? <PlaySvg width="42px" height="42px" />
+                  : <PauseSvg width="42px" height="42px" />
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="repeat" />
+                :
+                <RepeatSvg width="47px" height="47px" />
+              }
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/share.svg")} width="28px" height="32px" alt="share" />
+                :
+                <ShareSvg width="28px" height="32px" />
+              }
+            </TouchableOpacity>
+          </HStack>
+          {/* Music List */}
+          <VStack space={4} paddingX="35px" marginY="21px">
+            {route.params.from !== "settings" &&
+              <HStack justifyContent="space-between" alignItems="center">
                 <TouchableOpacity>
-                  <HStack space={2}>
-                    <Box style={styles.avatar} />
-                    <VStack justifyContent="space-between" paddingY="5px">
-                      <Text style={styles.title}>{item.title}</Text>
-                      <Text style={styles.name}>{item.name}</Text>
-                    </VStack>
+                  <HStack space={2} alignItems="center">
+                    <Box style={styles.add}>
+                      {Platform.OS === 'web' ?
+                        <Image source={require("../../../assets/icons/plus.svg")} width="28px" height="28px" alt="plus" />
+                        :
+                        <PlusSvg width="28px" height="28px" />
+                      }
+                    </Box>
+                    <Text style={styles.title}>Add Songs</Text>
                   </HStack>
                 </TouchableOpacity>
-                {route.params.from !== "settings" &&
-                  <TouchableOpacity>
-                    <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
-                  </TouchableOpacity>
-                }
-                {route.params.from === "settings" &&
-                  <TouchableOpacity onPress={() => deleteList(item.id)}>
-                    {Platform.OS === 'web' ? (
-                      deleteItem.includes(item.id) ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radio" />
-                        : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radio" />
-                    ) : (
-                      deleteItem.includes(item.id) ? <ActiveRadioSvg width="15px" height="15px" />
-                        : <RadioSvg width="15px" height="15px" />
-                    )}
-                  </TouchableOpacity>
-                }
+                <TouchableOpacity>
+                  <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
+                </TouchableOpacity>
               </HStack>
-            )
-          }
-        </VStack>
-        {route.params.from === "settings" &&
-          <VStack marginTop={6} space={5} alignItems="center">
-            <TouchableOpacity
-              style={styles.deleteBtn}
-            >
-              <Text style={styles.deleteText}>Delete</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("LibrarySettingsScreen", { library: library })}
-              style={styles.deleteBtn}
-            >
-              <Text style={styles.deleteText}>Cancel</Text>
-            </TouchableOpacity>
+            }
+            {
+              MusicList.map((item, index) =>
+                <HStack justifyContent="space-between" alignItems="center" key={index}>
+                  <TouchableOpacity>
+                    <HStack space={2}>
+                      <Box style={styles.avatar} />
+                      <VStack justifyContent="space-between" paddingY="5px">
+                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.name}>{item.name}</Text>
+                      </VStack>
+                    </HStack>
+                  </TouchableOpacity>
+                  {route.params.from !== "settings" &&
+                    <TouchableOpacity>
+                      <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
+                    </TouchableOpacity>
+                  }
+                  {route.params.from === "settings" &&
+                    <TouchableOpacity onPress={() => deleteList(item.id)}>
+                      {Platform.OS === 'web' ? (
+                        deleteItem.includes(item.id) ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radio" />
+                          : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radio" />
+                      ) : (
+                        deleteItem.includes(item.id) ? <ActiveRadioSvg width="15px" height="15px" />
+                          : <RadioSvg width="15px" height="15px" />
+                      )}
+                    </TouchableOpacity>
+                  }
+                </HStack>
+              )
+            }
           </VStack>
-        }
-      </ScrollView>
+          {route.params.from === "settings" &&
+            <VStack marginTop={6} space={5} alignItems="center">
+              <TouchableOpacity
+                style={styles.deleteBtn}
+              >
+                <Text style={styles.deleteText}>Delete</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("LibrarySettingsScreen", { library: library })}
+                style={styles.deleteBtn}
+              >
+                <Text style={styles.deleteText}>Cancel</Text>
+              </TouchableOpacity>
+            </VStack>
+          }
+        </ScrollView>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName="HomeScreen" />
-    </SafeAreaView>
+    </>
   );
 };
 

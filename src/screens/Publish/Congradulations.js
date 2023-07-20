@@ -12,47 +12,49 @@ import { COLOR } from "../../constants/Color";
 const Congradulations = ({ navigation }) => {
 
   return (
-    <SafeAreaView style={styles.container}>
-      <VStack flex={1} justifyContent="center" alignItems="center" px="23px" space={16}>
-        <Center>
-          <Text style={styles.title}>
-            Congradulations!
-          </Text>
-          <Text style={styles.text}>
-            Your music has successfully published on
-          </Text>
-          <Text style={styles.text}>
-            selected platforms!
-          </Text>
-        </Center>
-        <VStack width="100%" space={2}>
-          <HStack style={styles.box}>
-            <Image source={require("../../../assets/images/logos/88K_Logo.png")} width="65px" height="30px" alt="88k" />
-            <TouchableOpacity style={styles.shareBtn}>
-              <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
-            </TouchableOpacity>
-          </HStack>
-          <HStack style={styles.box}>
-            <Image source={require("../../../assets/images/logos/Spotify_Logo.png")} width="118px" height="35px" alt="88k" />
-            <TouchableOpacity style={styles.shareBtn}>
-              <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
-            </TouchableOpacity>
-          </HStack>
-          <HStack style={styles.box}>
-            <Image source={require("../../../assets/images/logos/Amazon_Music_Logo.png")} width="131px" height="43px" alt="88k" />
-            <TouchableOpacity style={styles.shareBtn}>
-              <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
+    <>
+      <SafeAreaView style={styles.container}>
+        <VStack flex={1} justifyContent="center" alignItems="center" px="23px" space={16}>
+          <Center>
+            <Text style={styles.title}>
+              Congradulations!
+            </Text>
+            <Text style={styles.text}>
+              Your music has successfully published on
+            </Text>
+            <Text style={styles.text}>
+              selected platforms!
+            </Text>
+          </Center>
+          <VStack width="100%" space={2}>
+            <HStack style={styles.box}>
+              <Image source={require("../../../assets/images/logos/88K_Logo.png")} width="65px" height="30px" alt="88k" />
+              <TouchableOpacity style={styles.shareBtn}>
+                <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
+              </TouchableOpacity>
+            </HStack>
+            <HStack style={styles.box}>
+              <Image source={require("../../../assets/images/logos/Spotify_Logo.png")} width="118px" height="35px" alt="88k" />
+              <TouchableOpacity style={styles.shareBtn}>
+                <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
+              </TouchableOpacity>
+            </HStack>
+            <HStack style={styles.box}>
+              <Image source={require("../../../assets/images/logos/Amazon_Music_Logo.png")} width="131px" height="43px" alt="88k" />
+              <TouchableOpacity style={styles.shareBtn}>
+                <Text fontFamily="Archivo-Bold" fontSize={10} color={COLOR.black}>share</Text>
+              </TouchableOpacity>
+            </HStack>
+          </VStack>
+          <HStack width="100%" justifyContent="center">
+            <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")} style={styles.button}>
+              <Text style={styles.buttonText}>Back to home</Text>
             </TouchableOpacity>
           </HStack>
         </VStack>
-        <HStack width="100%" justifyContent="center">
-          <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")} style={styles.button}>
-            <Text style={styles.buttonText}>Back to home</Text>
-          </TouchableOpacity>
-        </HStack>
-      </VStack>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName={"PublishScreen"} />
-    </SafeAreaView>
+    </>
   );
 };
 

@@ -219,235 +219,237 @@ const Marketplace = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
-      <ScrollView flex={1}>
-        <Header navigation={navigation} routeName="MarketplaceScreen" />
-        <Stack style={{ width: "100%" }}>
-          <TouchableOpacity onPress={() => navigation.navigate("VoicesScreen")}>
-            <Text style={styles.title}>VOICES</Text>
-          </TouchableOpacity>
-          <FlatList
-            data={VoicesData}
-            horizontal
-            paddingY="15px"
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity key={`voice-${index}`}
-                  onPress={() => item.id === selectedVoice?.id ? setSelectedVoice(null) : setSelectedVoice(item)}
-                >
-                  <Box style={{
-                    width: 135,
-                    height: 150,
-                    paddingHorizontal: 3,
-                    paddingVertical: 3,
-                    borderWidth: 1,
-                    borderColor: COLOR.gray3,
-                    borderRadius: 12,
-                    marginLeft: 15,
-                    marginRight: index === VoicesData.length - 1 ? 15 : 0,
-                    backgroundColor: (item.id === selectedVoice?.id) ? COLOR.yellow : COLOR.black
-                  }}>
-                    <Stack style={item.id === selectedVoice?.id ? styles.activeCardImage : styles.cardImage}>
-                      <Image source={item.image} width="100%" height="100%" borderRadius="11px" alt={item.name} />
-                    </Stack>
-                    <Stack style={{ marginTop: item.id === selectedVoice?.id ? 30 : 10 }}>
-                      <Text numberOfLines={1}
-                        style={{
+    <>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
+        <ScrollView flex={1}>
+          <Header navigation={navigation} routeName="MarketplaceScreen" />
+          <Stack style={{ width: "100%" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("VoicesScreen")}>
+              <Text style={styles.title}>VOICES</Text>
+            </TouchableOpacity>
+            <FlatList
+              data={VoicesData}
+              horizontal
+              paddingY="15px"
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity key={`voice-${index}`}
+                    onPress={() => item.id === selectedVoice?.id ? setSelectedVoice(null) : setSelectedVoice(item)}
+                  >
+                    <Box style={{
+                      width: 135,
+                      height: 150,
+                      paddingHorizontal: 3,
+                      paddingVertical: 3,
+                      borderWidth: 1,
+                      borderColor: COLOR.gray3,
+                      borderRadius: 12,
+                      marginLeft: 15,
+                      marginRight: index === VoicesData.length - 1 ? 15 : 0,
+                      backgroundColor: (item.id === selectedVoice?.id) ? COLOR.yellow : COLOR.black
+                    }}>
+                      <Stack style={item.id === selectedVoice?.id ? styles.activeCardImage : styles.cardImage}>
+                        <Image source={item.image} width="100%" height="100%" borderRadius="11px" alt={item.name} />
+                      </Stack>
+                      <Stack style={{ marginTop: item.id === selectedVoice?.id ? 30 : 10 }}>
+                        <Text numberOfLines={1}
+                          style={{
+                            fontFamily: "Archivo-SemiBold",
+                            fontSize: 12,
+                            lineHeight: 16,
+                            textAlign: "center",
+                            textTransform: "capitalize",
+                            color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                        <Text style={{
+                          fontFamily: "Archivo",
+                          fontSize: 8,
+                          lineHeight: 9,
+                          textAlign: "center",
+                          letterSpacing: 3,
+                          textTransform: "uppercase", color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
+                        }}>
+                          voice
+                        </Text>
+                      </Stack>
+                      {item.id === selectedVoice?.id &&
+                        <Text style={{
                           fontFamily: "Archivo-SemiBold",
                           fontSize: 12,
                           lineHeight: 16,
                           textAlign: "center",
                           textTransform: "capitalize",
-                          color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
-                        }}
-                      >
-                        {item.name}
-                      </Text>
-                      <Text style={{
-                        fontFamily: "Archivo",
-                        fontSize: 8,
-                        lineHeight: 9,
-                        textAlign: "center",
-                        letterSpacing: 3,
-                        textTransform: "uppercase", color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
-                      }}>
-                        voice
-                      </Text>
-                    </Stack>
-                    {item.id === selectedVoice?.id &&
-                      <Text style={{
-                        fontFamily: "Archivo-SemiBold",
-                        fontSize: 12,
-                        lineHeight: 16,
-                        textAlign: "center",
-                        textTransform: "capitalize",
-                        color: COLOR.black, marginTop: 20
-                      }}>
-                        50% Royalty Off Streams
-                      </Text>
-                    }
-                  </Box>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </Stack>
-        <Stack style={{ width: "100%", marginTop: 30 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("BeatsScreen")}>
-            <Text style={styles.title}>BEATS</Text>
-          </TouchableOpacity>
-          {
-            selectedBeats ?
-              <CardComponent />
-              :
-              <FlatList
-                data={BeatsData}
-                horizontal
-                paddingY="15px"
-                renderItem={({ item, index }) => {
-                  return (
-                    <TouchableOpacity key={`${index}-beats`} onPress={() => setSelectedBeats(item)}>
-                      <Box style={{
-                        width: 135,
-                        height: 150,
-                        paddingHorizontal: 3,
-                        paddingVertical: 3,
-                        borderWidth: 1,
-                        borderColor: COLOR.gray3,
-                        borderRadius: 12,
-                        marginLeft: 15,
-                        marginRight: index === BeatsData.length - 1 ? 15 : 0,
-                        backgroundColor: (item.id === selectedBeats?.id) ? COLOR.yellow : COLOR.black
-                      }}>
-                        <Stack width="100%" height={100} overflow="hidden">
-                          <Image source={item.image} width="100%" height="100%" borderRadius="10px" alt={item.name} />
-                        </Stack>
-                        <Stack style={{ marginTop: 10 }}>
-                          <Text numberOfLines={1}
-                            style={{
-                              fontFamily: "Archivo-SemiBold",
-                              fontSize: 12,
-                              lineHeight: 16,
+                          color: COLOR.black, marginTop: 20
+                        }}>
+                          50% Royalty Off Streams
+                        </Text>
+                      }
+                    </Box>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </Stack>
+          <Stack style={{ width: "100%", marginTop: 30 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("BeatsScreen")}>
+              <Text style={styles.title}>BEATS</Text>
+            </TouchableOpacity>
+            {
+              selectedBeats ?
+                <CardComponent />
+                :
+                <FlatList
+                  data={BeatsData}
+                  horizontal
+                  paddingY="15px"
+                  renderItem={({ item, index }) => {
+                    return (
+                      <TouchableOpacity key={`${index}-beats`} onPress={() => setSelectedBeats(item)}>
+                        <Box style={{
+                          width: 135,
+                          height: 150,
+                          paddingHorizontal: 3,
+                          paddingVertical: 3,
+                          borderWidth: 1,
+                          borderColor: COLOR.gray3,
+                          borderRadius: 12,
+                          marginLeft: 15,
+                          marginRight: index === BeatsData.length - 1 ? 15 : 0,
+                          backgroundColor: (item.id === selectedBeats?.id) ? COLOR.yellow : COLOR.black
+                        }}>
+                          <Stack width="100%" height={100} overflow="hidden">
+                            <Image source={item.image} width="100%" height="100%" borderRadius="10px" alt={item.name} />
+                          </Stack>
+                          <Stack style={{ marginTop: 10 }}>
+                            <Text numberOfLines={1}
+                              style={{
+                                fontFamily: "Archivo-SemiBold",
+                                fontSize: 12,
+                                lineHeight: 16,
+                                textAlign: "center",
+                                textTransform: "capitalize",
+                                color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
+                              }}
+                            >
+                              {item.name}
+                            </Text>
+                            <Text style={{
+                              fontFamily: "Archivo",
+                              fontSize: 8,
+                              lineHeight: 9,
                               textAlign: "center",
-                              textTransform: "capitalize",
-                              color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
-                            }}
-                          >
-                            {item.name}
-                          </Text>
-                          <Text style={{
-                            fontFamily: "Archivo",
-                            fontSize: 8,
-                            lineHeight: 9,
+                              letterSpacing: 3,
+                              textTransform: "uppercase", color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
+                            }}>
+                              beats
+                            </Text>
+                          </Stack>
+                        </Box>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+            }
+          </Stack>
+          <Stack style={{ width: "100%", marginTop: 30 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("SongsScreen")}>
+              <Text style={styles.title}>SONGS</Text>
+            </TouchableOpacity>
+            <FlatList
+              data={SongsData}
+              horizontal
+              paddingY="15px"
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity key={`songs-${index}`}
+                    onPress={() => item.id === selectedSong?.id ? setSelectedSong(null) : setSelectedSong(item)}
+                  >
+                    <Box style={{
+                      width: 135,
+                      height: 150,
+                      paddingHorizontal: 3,
+                      paddingVertical: 3,
+                      borderWidth: 1,
+                      borderColor: COLOR.gray3,
+                      borderRadius: 12,
+                      marginLeft: 15,
+                      height: 180,
+                      marginRight: index === SongsData.length - 1 ? 15 : 0,
+                      backgroundColor: (item.id === selectedSong?.id) ? COLOR.yellow : COLOR.black
+                    }}>
+                      <Stack style={item.id === selectedSong?.id ? styles.activeCardImage : styles.cardImage}>
+                        <Image source={item.image} width="100%" height="100%" borderRadius="11px" alt={item.name} />
+                      </Stack>
+                      <Stack style={{ marginTop: item.id === selectedSong?.id ? 30 : 15 }}>
+                        <Text numberOfLines={1}
+                          style={{
+                            fontFamily: "Archivo-SemiBold",
+                            lineHeight: 16,
                             textAlign: "center",
-                            letterSpacing: 3,
-                            textTransform: "uppercase", color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
-                          }}>
-                            beats
-                          </Text>
-                        </Stack>
-                      </Box>
-                    </TouchableOpacity>
-                  );
-                }}
-              />
-          }
-        </Stack>
-        <Stack style={{ width: "100%", marginTop: 30 }}>
-          <TouchableOpacity onPress={() => navigation.navigate("SongsScreen")}>
-            <Text style={styles.title}>SONGS</Text>
-          </TouchableOpacity>
-          <FlatList
-            data={SongsData}
-            horizontal
-            paddingY="15px"
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity key={`songs-${index}`}
-                  onPress={() => item.id === selectedSong?.id ? setSelectedSong(null) : setSelectedSong(item)}
-                >
-                  <Box style={{
-                    width: 135,
-                    height: 150,
-                    paddingHorizontal: 3,
-                    paddingVertical: 3,
-                    borderWidth: 1,
-                    borderColor: COLOR.gray3,
-                    borderRadius: 12,
-                    marginLeft: 15,
-                    height: 180,
-                    marginRight: index === SongsData.length - 1 ? 15 : 0,
-                    backgroundColor: (item.id === selectedSong?.id) ? COLOR.yellow : COLOR.black
-                  }}>
-                    <Stack style={item.id === selectedSong?.id ? styles.activeCardImage : styles.cardImage}>
-                      <Image source={item.image} width="100%" height="100%" borderRadius="11px" alt={item.name} />
-                    </Stack>
-                    <Stack style={{ marginTop: item.id === selectedSong?.id ? 30 : 15 }}>
-                      <Text numberOfLines={1}
-                        style={{
+                            letterSpacing: -0.4,
+                            color: item.id === selectedSong?.id ? COLOR.black : COLOR.white,
+                            fontSize: item.id === selectedSong?.id ? 8 : 10,
+                            textTransform: item.id === selectedSong?.id ? "uppercase" : "capitalize"
+                          }}
+                        >
+                          {item.name}
+                        </Text>
+                        <Text numberOfLines={1}
+                          style={{
+                            fontFamily: "Archivo-SemiBold",
+                            fontSize: 14,
+                            lineHeight: 20,
+                            textAlign: "center",
+                            textTransform: "capitalize",
+                            color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
+                          }}
+                        >
+                          {item.title}
+                        </Text>
+                        <Text style={{
+                          fontFamily: "Archivo",
+                          fontSize: 8,
+                          lineHeight: 10,
+                          textAlign: "center",
+                          letterSpacing: 3,
+                          textTransform: "uppercase",
+                          color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
+                        }}>
+                          song
+                        </Text>
+                      </Stack>
+                      {item.id === selectedSong?.id &&
+                        <Text style={{
                           fontFamily: "Archivo-SemiBold",
+                          fontSize: 12,
                           lineHeight: 16,
                           textAlign: "center",
-                          letterSpacing: -0.4,
-                          color: item.id === selectedSong?.id ? COLOR.black : COLOR.white,
-                          fontSize: item.id === selectedSong?.id ? 8 : 10,
-                          textTransform: item.id === selectedSong?.id ? "uppercase" : "capitalize"
-                        }}
-                      >
-                        {item.name}
-                      </Text>
-                      <Text numberOfLines={1}
-                        style={{
-                          fontFamily: "Archivo-SemiBold",
-                          fontSize: 14,
-                          lineHeight: 20,
-                          textAlign: "center",
                           textTransform: "capitalize",
-                          color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
-                        }}
-                      >
-                        {item.title}
-                      </Text>
-                      <Text style={{
-                        fontFamily: "Archivo",
-                        fontSize: 8,
-                        lineHeight: 10,
-                        textAlign: "center",
-                        letterSpacing: 3,
-                        textTransform: "uppercase",
-                        color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
-                      }}>
-                        song
-                      </Text>
-                    </Stack>
-                    {item.id === selectedSong?.id &&
-                      <Text style={{
-                        fontFamily: "Archivo-SemiBold",
-                        fontSize: 12,
-                        lineHeight: 16,
-                        textAlign: "center",
-                        textTransform: "capitalize",
-                        color: COLOR.black, marginTop: 20
-                      }}>
-                        25% Royalty Off Streams
-                      </Text>
-                    }
-                  </Box>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </Stack>
-        <Center>
-          <TouchableOpacity onPress={createContract} style={styles.createBtn}>
-            <Text fontFamily="Archivo-Bold" textTransform="uppercase" color={COLOR.black}>
-              Create
-            </Text>
-          </TouchableOpacity>
-        </Center>
-      </ScrollView>
+                          color: COLOR.black, marginTop: 20
+                        }}>
+                          25% Royalty Off Streams
+                        </Text>
+                      }
+                    </Box>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </Stack>
+          <Center>
+            <TouchableOpacity onPress={createContract} style={styles.createBtn}>
+              <Text fontFamily="Archivo-Bold" textTransform="uppercase" color={COLOR.black}>
+                Create
+              </Text>
+            </TouchableOpacity>
+          </Center>
+        </ScrollView>
+      </SafeAreaView >
       <Footer navigation={navigation} routeName="HomeScreen" />
-    </SafeAreaView >
+    </>
   );
 };
 

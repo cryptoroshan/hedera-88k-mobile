@@ -99,164 +99,158 @@ const Progression = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView flex={1}>
-        <Text style={styles.title}>Publish</Text>
-        <Stack marginTop="39px" alignItems="center" width="100%">
-          <VStack>
-            <Stack marginBottom="12px">
-              <HStack space={5}>
-                {/* <SvgXml xml={ voiceScanSuccess === true ? ActiveRadioIcon : RadioIcon } width={22} height={22} /> */}
-                {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
-                  : <ActiveRadioIconSvg width="22px" height="22px" />
-                }
-                <Stack>
-                  <Text style={styles.lineTitle}>Voices scan complete</Text>
-                  <Text style={styles.caption}>1 voice used | Ariana Grande</Text>
-                </Stack>
-              </HStack>
-              <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
-            </Stack>
-            <Stack marginBottom="12px">
-              <HStack space={5}>
-                {/* <SvgXml xml={ beatScanSuccess === true ? ActiveRadioIcon : RadioIcon } width={22} height={22} /> */}
-                {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                  : <RadioIconSvg width="22px" height="22px" />
-                }
-                <Stack>
-                  <Text style={styles.lineTitle}>Beats scan complete</Text>
-                  <Text style={styles.caption}>0 Beats used</Text>
-                </Stack>
-              </HStack>
-              <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
-            </Stack>
-            <Stack marginBottom="12px">
-              <HStack space={5}>
-                {/* <SvgXml xml={ lyricScanSuccess === true ? ActiveRadioIcon : RadioIcon } width={22} height={22} /> */}
-                {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                  : <RadioIconSvg width="22px" height="22px" />
-                }
-                <Stack>
-                  <Text style={styles.lineTitle}>Lyrics scan complete</Text>
-                  <Text style={styles.caption}>0 Lyrics used</Text>
-                </Stack>
-              </HStack>
-              <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
-            </Stack>
-            <HStack space={5}>
-              {/* <SvgXml xml={ smartContractGenerateSuccess === true ? ActiveRadioIcon : RadioIcon } width={22} height={22} /> */}
-              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                : <RadioIconSvg width="22px" height="22px" />
-              }
-              <Text style={styles.lineTitle}>Smart contract generated!</Text>
-            </HStack>
-          </VStack>
-          <Box style={styles.boxContainer}>
-            <Text fontFamily="Archivo-Thin" color={COLOR.white} fontSize={40} lineHeight={40}>
-              50%
-            </Text>
-            <Text fontFamily="Archivo" color={COLOR.white} fontSize={14} lineHeight={20} textAlign="center">
-              of "music title"'s streaming revenue goes to YOU
-            </Text>
-          </Box>
-          {Platform.OS === 'web' ?
-            <VStack alignItems="center" space={3} marginTop={4}>
-              <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
-              <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
-              <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
-            </VStack>
-            :
-            <VStack alignItems="center" space={3} marginTop={4}>
-              <DotSvg width="4px" height="4px" />
-              <DotSvg width="4px" height="4px" />
-              <DotSvg width="4px" height="4px" />
-            </VStack>
-          }
-          <Text fontFamily="Archivo-Bold" fontSize={16} color={COLOR.white} textTransform="uppercase" marginTop={4}>
-            Publish On:
-          </Text>
-          <HStack width="50%">
-            <VStack space={5} width="100%" alignItems="flex-end" marginTop={8} mr={8}>
-              {
-                logos.map((item, index) =>
-                  <TouchableOpacity key={index}
-                    onPress={() => {
-                      setValue(item);
-                      setIsAll(false);
-                    }}
-                    style={{ width: "100%" }}
-                  >
-                    <HStack alignItems="center" width="100%" height="30px" space={4}>
-                      {Platform.OS === 'web' ?
-                        <HStack width="80%" height="50px" justifyContent="flex-end">
-                          <Image source={item.logo} width="100%" height="100%" resizeMode="center" alt={`logo`} />
-                        </HStack>
-                        :
-                        <HStack width="80%" height="50px" justifyContent="flex-end" alignItems="center">
-                          <Image source={item.logo} alt={`logo`} />
-                        </HStack>
-                      }
-                      {value?.id === item.id ?
-                        (
-                          Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="22px" height="22px" alt="radio" />
-                            : <ActiveRadioBtnSvg width="22px" height="22px" />
-                        ) : (
-                          Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn.svg")} width="22px" height="22px" alt="radio" />
-                            : <RadioBtnSvg width="22px" height="22px" />
-                        )
-                      }
-                    </HStack>
-                  </TouchableOpacity>
-                )
-              }
-              <TouchableOpacity
-                onPress={() => {
-                  setValue(null);
-                  setIsAll(true);
-                }}
-              >
-                <HStack alignItems="center" space={4}>
-                  <Text style={styles.selectAll}>Select All</Text>
-                  {isAll ?
-                    (
-                      Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="22px" height="22px" alt="radio" />
-                        : <ActiveRadioBtnSvg width="22px" height="22px" />
-                    ) : (
-                      Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn.svg")} width="22px" height="22px" alt="radio" />
-                        : <RadioBtnSvg width="22px" height="22px" />
-                    )
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScrollView flex={1}>
+          <Text style={styles.title}>Publish</Text>
+          <Stack marginTop="39px" alignItems="center" width="100%">
+            <VStack>
+              <Stack marginBottom="12px">
+                <HStack space={5}>
+                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
+                    : <ActiveRadioIconSvg width="22px" height="22px" />
                   }
+                  <Stack>
+                    <Text style={styles.lineTitle}>Voices scan complete</Text>
+                    <Text style={styles.caption}>1 voice used | Ariana Grande</Text>
+                  </Stack>
                 </HStack>
+                <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
+              </Stack>
+              <Stack marginBottom="12px">
+                <HStack space={5}>
+                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                    : <RadioIconSvg width="22px" height="22px" />
+                  }
+                  <Stack>
+                    <Text style={styles.lineTitle}>Beats scan complete</Text>
+                    <Text style={styles.caption}>0 Beats used</Text>
+                  </Stack>
+                </HStack>
+                <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
+              </Stack>
+              <Stack marginBottom="12px">
+                <HStack space={5}>
+                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                    : <RadioIconSvg width="22px" height="22px" />
+                  }
+                  <Stack>
+                    <Text style={styles.lineTitle}>Lyrics scan complete</Text>
+                    <Text style={styles.caption}>0 Lyrics used</Text>
+                  </Stack>
+                </HStack>
+                <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
+              </Stack>
+              <HStack space={5}>
+                {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                  : <RadioIconSvg width="22px" height="22px" />
+                }
+                <Text style={styles.lineTitle}>Smart contract generated!</Text>
+              </HStack>
+            </VStack>
+            <Box style={styles.boxContainer}>
+              <Text fontFamily="Archivo-Thin" color={COLOR.white} fontSize={40} lineHeight={40}>
+                50%
+              </Text>
+              <Text fontFamily="Archivo" color={COLOR.white} fontSize={14} lineHeight={20} textAlign="center">
+                of "music title"'s streaming revenue goes to YOU
+              </Text>
+            </Box>
+            {Platform.OS === 'web' ?
+              <VStack alignItems="center" space={3} marginTop={4}>
+                <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
+                <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
+                <Image source={require("../../../assets/icons/dot.svg")} width="4px" height="4px" alt="radio" />
+              </VStack>
+              :
+              <VStack alignItems="center" space={3} marginTop={4}>
+                <DotSvg width="4px" height="4px" />
+                <DotSvg width="4px" height="4px" />
+                <DotSvg width="4px" height="4px" />
+              </VStack>
+            }
+            <Text fontFamily="Archivo-Bold" fontSize={16} color={COLOR.white} textTransform="uppercase" marginTop={4}>
+              Publish On:
+            </Text>
+            <HStack width="50%">
+              <VStack space={5} width="100%" alignItems="flex-end" marginTop={8} mr={8}>
+                {
+                  logos.map((item, index) =>
+                    <TouchableOpacity key={index}
+                      onPress={() => {
+                        setValue(item);
+                        setIsAll(false);
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      <HStack alignItems="center" width="100%" height="30px" space={4}>
+                        {Platform.OS === 'web' ?
+                          <HStack width="80%" height="50px" justifyContent="flex-end">
+                            <Image source={item.logo} width="100%" height="100%" resizeMode="center" alt={`logo`} />
+                          </HStack>
+                          :
+                          <HStack width="80%" height="50px" justifyContent="flex-end" alignItems="center">
+                            <Image source={item.logo} alt={`logo`} />
+                          </HStack>
+                        }
+                        {value?.id === item.id ?
+                          (
+                            Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="22px" height="22px" alt="radio" />
+                              : <ActiveRadioBtnSvg width="22px" height="22px" />
+                          ) : (
+                            Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn.svg")} width="22px" height="22px" alt="radio" />
+                              : <RadioBtnSvg width="22px" height="22px" />
+                          )
+                        }
+                      </HStack>
+                    </TouchableOpacity>
+                  )
+                }
+                <TouchableOpacity
+                  onPress={() => {
+                    setValue(null);
+                    setIsAll(true);
+                  }}
+                >
+                  <HStack alignItems="center" space={4}>
+                    <Text style={styles.selectAll}>Select All</Text>
+                    {isAll ?
+                      (
+                        Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="22px" height="22px" alt="radio" />
+                          : <ActiveRadioBtnSvg width="22px" height="22px" />
+                      ) : (
+                        Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radiobtn.svg")} width="22px" height="22px" alt="radio" />
+                          : <RadioBtnSvg width="22px" height="22px" />
+                      )
+                    }
+                  </HStack>
+                </TouchableOpacity>
+              </VStack>
+            </HStack>
+            <VStack alignItems="center" space={5} marginY={7}>
+              <TouchableOpacity style={styles.button}>
+                <Text fontFamily="Archivo-Medium" color={COLOR.black} fontSize={12}>View Terms and Conditions</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("CongradulationsScreen")}>
+                <Text fontFamily="Archivo-Bold" color={COLOR.black} fontSize={12}>PUBLISH</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{
+                width: 198,
+                height: 35,
+                borderRadius: 24,
+                backgroundColor: COLOR.primary,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#F8F8F880"
+              }}>
+                <Text fontFamily="Archivo-Bold" color={COLOR.white} fontSize={12}>SAVE TO DRAFT</Text>
               </TouchableOpacity>
             </VStack>
-          </HStack>
-          <VStack alignItems="center" space={5} marginY={7}>
-            <TouchableOpacity style={styles.button}>
-              <Text fontFamily="Archivo-Medium" color={COLOR.black} fontSize={12}>View Terms and Conditions</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              disabled={canPublish === true ? false : true}
-              onPress={() => navigation.navigate("CongradulationsScreen")}
-            >
-              <Text fontFamily="Archivo-Bold" color={COLOR.black} fontSize={12}>PUBLISH</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{
-              width: 198,
-              height: 35,
-              borderRadius: 24,
-              backgroundColor: COLOR.primary,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#F8F8F880"
-            }}>
-              <Text fontFamily="Archivo-Bold" color={COLOR.white} fontSize={12}>SAVE TO DRAFT</Text>
-            </TouchableOpacity>
-          </VStack>
-        </Stack>
-      </ScrollView>
+          </Stack>
+        </ScrollView>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName={"PublishScreen"} />
-    </SafeAreaView>
+    </>
   );
 };
 

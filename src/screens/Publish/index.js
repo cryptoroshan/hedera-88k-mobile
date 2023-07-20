@@ -163,63 +163,71 @@ const Publish = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView flex={1}>
-        <Text style={styles.title}>Publish</Text>
-        <VStack width="100%" paddingX="31px">
-          <TouchableOpacity onPress={pickAndUploadMusic} style={styles.musicUpload}>
-            {Platform.OS === 'web' ?
-              <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
-              : <PublishSvg width="19px" height="18px" />
-            }
-            <Text style={styles.musicUploadText}>{music === null ? "Upload your music file here" : music.name}</Text>
-          </TouchableOpacity>
-          <Text style={styles.description}>
-            Our AI will scan your file and detect the voices, beats, and lyrics
-            from 88K in the file you upload, and we will generate a fair pay
-            formula for everybody involved in this piece.
-          </Text>
-          <Box marginTop="50px">
-            <Text style={styles.label}>Title of your music</Text>
-            <Input
-              w={"100%"}
-              h={"35px"}
-              backgroundColor={COLOR.primary}
-              color={COLOR.black}
-              fontSize={16}
-              value={title}
-              onChangeText={(text) => setTitle(text)}
-            />
-          </Box>
-          <Box marginTop="32px">
-            <Text style={styles.label}>Cover art for your music</Text>
-            <TouchableOpacity onPress={pickAndUploadArt} style={styles.fileUpload}>
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScrollView flex={1}>
+          <Text style={styles.title}>Publish</Text>
+          <VStack width="100%" paddingX="31px">
+            <TouchableOpacity onPress={pickAndUploadMusic} style={styles.musicUpload}>
               {Platform.OS === 'web' ?
                 <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
                 : <PublishSvg width="19px" height="18px" />
               }
-              <Text style={styles.fileUploadText}>{art === null ? "Upload 1 image here" : art.name}</Text>
+              <Text style={styles.musicUploadText}>
+                {music ? music.name : 'Upload your music file here'}
+              </Text>
             </TouchableOpacity>
-          </Box>
-          <Box marginTop="32px">
-            <Text style={styles.label}>{`Video for your music (optional)`}</Text>
-            <TouchableOpacity onPress={pickAndUploadVideo} style={styles.fileUpload}>
-              {Platform.OS === 'web' ?
-                <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
-                : <PublishSvg width="19px" height="18px" />
-              }
-              <Text style={styles.fileUploadText}>{video === null ? "Upload 1 video here" : video.name}</Text>
+            <Text style={styles.description}>
+              Our AI will scan your file and detect the voices, beats, and lyrics
+              from 88K in the file you upload, and we will generate a fair pay
+              formula for everybody involved in this piece.
+            </Text>
+            <Box marginTop="50px">
+              <Text style={styles.label}>Title of your music</Text>
+              <Input
+                w={"100%"}
+                h={"35px"}
+                backgroundColor={COLOR.primary}
+                color={COLOR.black}
+                fontSize={16}
+                value={title}
+                onChangeText={(text) => setTitle(text)}
+              />
+            </Box>
+            <Box marginTop="32px">
+              <Text style={styles.label}>Cover art for your music</Text>
+              <TouchableOpacity onPress={pickAndUploadArt} style={styles.fileUpload}>
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
+                  : <PublishSvg width="19px" height="18px" />
+                }
+                <Text style={styles.fileUploadText}>
+                  {art ? art.name : 'Upload 1 image here'}
+                </Text>
+              </TouchableOpacity>
+            </Box>
+            <Box marginTop="32px">
+              <Text style={styles.label}>{`Video for your music (optional)`}</Text>
+              <TouchableOpacity onPress={pickAndUploadVideo} style={styles.fileUpload}>
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
+                  : <PublishSvg width="19px" height="18px" />
+                }
+                <Text style={styles.fileUploadText}>
+                  {video ? video.name : 'Upload 1 video here'}
+                </Text>
+              </TouchableOpacity>
+            </Box>
+          </VStack>
+          <HStack width="100%" justifyContent="center" marginTop="33px" marginBottom="30px">
+            <TouchableOpacity onPress={next} style={styles.button}>
+              <Text style={styles.buttonText}>Next</Text>
             </TouchableOpacity>
-          </Box>
-        </VStack>
-        <HStack width="100%" justifyContent="center" marginTop="33px" marginBottom="30px">
-          <TouchableOpacity onPress={next} style={styles.button}>
-            <Text style={styles.buttonText}>Next</Text>
-          </TouchableOpacity>
-        </HStack>
-      </ScrollView>
+          </HStack>
+        </ScrollView>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName={"PublishScreen"} />
-    </SafeAreaView>
+    </>
   );
 };
 

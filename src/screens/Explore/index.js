@@ -97,159 +97,161 @@ const genre = [
 
 const Explore = ({ navigation }) => {
   return (
-    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
-      <ScrollView flex={1}>
-        <Header navigation={navigation} routeName="ExploreScreen" />
-        <VStack justifyContent="space-between" space={10} marginY={5}>
-          <HStack justifyContent="space-between" space={2} paddingX={5}>
-            <Box style={{
-              width: "50%",
-              height: 90,
-              borderRadius: 15,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#3787FF"
-            }}>
-              <Text style={styles.cardTitle}>New Release</Text>
-            </Box>
-            <Box style={{
-              width: "50%",
-              height: 90,
-              borderRadius: 15,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#FF6262"
-            }}>
-              <Text style={styles.cardTitle}>Charts</Text>
-            </Box>
-          </HStack>
-          <Stack>
-            <Text style={styles.rowTitle}>Featured 88K Compositions</Text>
-            <FlatList
-              data={compositions}
-              horizontal
-              style={{ paddingVertical: 15 }}
-              renderItem={({ item, index }) => {
-                return (
-                  <Box style={{
-                    width: 180,
-                    height: 151,
-                    borderRadius: 14,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    // backgroundColor: "#3787FF",
-                    marginLeft: index === 0 ? 20 : 9,
-                    marginRight: index === compositions.length - 1 ? 20 : 0,
-                  }}>
-                    <LinearGradient
-                      colors={['rgba(0, 194, 255, 0.50)', 'rgba(0, 194, 255, 0.00)']}
-                      locations={[0, 178.1249964237213 / 360]}
-                      start={[0.5, 0.5]}
-                      end={[0, 0]}
-                      style={{ flex: 1, width: "100%", height: "100%", borderRadius: 14, position: "absolute" }}
-                    />
-                    <LinearGradient
-                      colors={['rgba(0, 194, 255, 0.50)', 'rgba(0, 194, 255, 0.00)']}
-                      locations={[0, 178.1249964237213 / 360]}
-                      start={[0.5, 0.5]}
-                      end={[1, 0]}
-                      style={{ flex: 1, width: "100%", height: "100%", borderRadius: 14, position: "absolute" }}
-                    />
-                    <Text style={styles.cardTitle}>{item.title}</Text>
-                  </Box>
-                )
-              }}
-            />
-          </Stack>
-          <Stack>
-            <Text style={styles.rowTitle}>TRENDING Artist</Text>
-            <FlatList
-              data={artists}
-              horizontal
-              style={{ paddingVertical: 15 }}
-              renderItem={({ item, index }) => {
-                return (
-                  <TouchableOpacity onPress={() => navigation.navigate("PlayExploreScreen", { artist: item })}>
+    <>
+      <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
+        <ScrollView flex={1}>
+          <Header navigation={navigation} routeName="ExploreScreen" />
+          <VStack justifyContent="space-between" space={10} marginY={5}>
+            <HStack justifyContent="space-between" space={2} paddingX={5}>
+              <Box style={{
+                width: "50%",
+                height: 90,
+                borderRadius: 15,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#3787FF"
+              }}>
+                <Text style={styles.cardTitle}>New Release</Text>
+              </Box>
+              <Box style={{
+                width: "50%",
+                height: 90,
+                borderRadius: 15,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#FF6262"
+              }}>
+                <Text style={styles.cardTitle}>Charts</Text>
+              </Box>
+            </HStack>
+            <Stack>
+              <Text style={styles.rowTitle}>Featured 88K Compositions</Text>
+              <FlatList
+                data={compositions}
+                horizontal
+                style={{ paddingVertical: 15 }}
+                renderItem={({ item, index }) => {
+                  return (
                     <Box style={{
                       width: 180,
                       height: 151,
-                      borderRadius: 16,
+                      borderRadius: 14,
                       justifyContent: "center",
                       alignItems: "center",
-                      paddingHorizontal: 30,
+                      // backgroundColor: "#3787FF",
+                      marginLeft: index === 0 ? 20 : 9,
+                      marginRight: index === compositions.length - 1 ? 20 : 0,
+                    }}>
+                      <LinearGradient
+                        colors={['rgba(0, 194, 255, 0.50)', 'rgba(0, 194, 255, 0.00)']}
+                        locations={[0, 178.1249964237213 / 360]}
+                        start={[0.5, 0.5]}
+                        end={[0, 0]}
+                        style={{ flex: 1, width: "100%", height: "100%", borderRadius: 14, position: "absolute" }}
+                      />
+                      <LinearGradient
+                        colors={['rgba(0, 194, 255, 0.50)', 'rgba(0, 194, 255, 0.00)']}
+                        locations={[0, 178.1249964237213 / 360]}
+                        start={[0.5, 0.5]}
+                        end={[1, 0]}
+                        style={{ flex: 1, width: "100%", height: "100%", borderRadius: 14, position: "absolute" }}
+                      />
+                      <Text style={styles.cardTitle}>{item.title}</Text>
+                    </Box>
+                  )
+                }}
+              />
+            </Stack>
+            <Stack>
+              <Text style={styles.rowTitle}>TRENDING Artist</Text>
+              <FlatList
+                data={artists}
+                horizontal
+                style={{ paddingVertical: 15 }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <TouchableOpacity onPress={() => navigation.navigate("PlayExploreScreen", { artist: item })}>
+                      <Box style={{
+                        width: 180,
+                        height: 151,
+                        borderRadius: 16,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        paddingHorizontal: 30,
+                        marginLeft: index === 0 ? 20 : 9,
+                        marginRight: index === artists.length - 1 ? 20 : 0,
+                      }}>
+                        <Stack style={styles.cardImage}>
+                          <Image
+                            source={item.image}
+                            opacity={0.8}
+                            width="100%"
+                            height="100%"
+                            borderRadius="11px"
+                            alt={item.title}
+                          />
+                        </Stack>
+                        <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
+                      </Box>
+                    </TouchableOpacity>
+                  )
+                }}
+              />
+            </Stack>
+            <Stack>
+              <Text style={styles.rowTitle}>TRENDING Producer</Text>
+              <FlatList
+                data={producers}
+                horizontal
+                style={{ paddingVertical: 15 }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <Box style={{
+                      width: 180,
+                      height: 151,
+                      borderRadius: 14,
+                      backgroundColor: "#00D1FF",
+                      justifyContent: "center",
+                      alignItems: "center",
                       marginLeft: index === 0 ? 20 : 9,
                       marginRight: index === artists.length - 1 ? 20 : 0,
                     }}>
-                      <Stack style={styles.cardImage}>
-                        <Image
-                          source={item.image}
-                          opacity={0.8}
-                          width="100%"
-                          height="100%"
-                          borderRadius="11px"
-                          alt={item.title}
-                        />
-                      </Stack>
                       <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
                     </Box>
-                  </TouchableOpacity>
-                )
-              }}
-            />
-          </Stack>
-          <Stack>
-            <Text style={styles.rowTitle}>TRENDING Producer</Text>
-            <FlatList
-              data={producers}
-              horizontal
-              style={{ paddingVertical: 15 }}
-              renderItem={({ item, index }) => {
-                return (
-                  <Box style={{
-                    width: 180,
-                    height: 151,
-                    borderRadius: 14,
-                    backgroundColor: "#00D1FF",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginLeft: index === 0 ? 20 : 9,
-                    marginRight: index === artists.length - 1 ? 20 : 0,
-                  }}>
-                    <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
-                  </Box>
-                )
-              }}
-            />
-          </Stack>
-          <Stack>
-            <Text style={styles.rowTitle}>Genre</Text>
-            <FlatList
-              data={genre}
-              horizontal
-              style={{ paddingVertical: 15 }}
-              renderItem={({ item, index }) => {
-                return (
-                  <Box style={{
-                    width: 180,
-                    height: 151,
-                    borderRadius: 14,
-                    backgroundColor: "#00D1FF",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "#9EFF00CC",
-                    marginLeft: index === 0 ? 20 : 9,
-                    marginRight: index === artists.length - 1 ? 20 : 0,
-                  }}>
-                    <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
-                  </Box>
-                )
-              }}
-            />
-          </Stack>
-        </VStack>
-      </ScrollView>
+                  )
+                }}
+              />
+            </Stack>
+            <Stack>
+              <Text style={styles.rowTitle}>Genre</Text>
+              <FlatList
+                data={genre}
+                horizontal
+                style={{ paddingVertical: 15 }}
+                renderItem={({ item, index }) => {
+                  return (
+                    <Box style={{
+                      width: 180,
+                      height: 151,
+                      borderRadius: 14,
+                      backgroundColor: "#00D1FF",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "#9EFF00CC",
+                      marginLeft: index === 0 ? 20 : 9,
+                      marginRight: index === artists.length - 1 ? 20 : 0,
+                    }}>
+                      <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
+                    </Box>
+                  )
+                }}
+              />
+            </Stack>
+          </VStack>
+        </ScrollView>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName={"HomeScreen"} />
-    </SafeAreaView>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ import LibraryActiveSvg from "../../assets/icons/library_active.svg";
 
 const Footer = ({ navigation, routeName }) => {
   return (
-    <HStack justifyContent="space-between" width="100%" bottom={0} bg={COLOR.black} safeAreaBottom pt={2} pb={5} px="20px" zIndex={999}>
+    <HStack width="100%" justifyContent="space-between" alignItems="center" bottom={0} bg={COLOR.black} safeAreaBottom px="20px" zIndex={999}>
       <Pressable onPress={() => navigation.navigate("HomeScreen")}>
         <Stack alignItems={"center"} space={1}>
           {Platform.OS === 'web' ?

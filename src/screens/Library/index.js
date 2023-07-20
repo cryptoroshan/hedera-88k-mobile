@@ -35,112 +35,114 @@ const Library = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView flex={1}>
-        <HStack justifyContent="space-between" width={width} marginTop={3} paddingX="25px">
-          <HStack space={6} alignItems="center">
-            <TouchableOpacity onPress={() => setSearchOpened(!searchOpened)}>
-              {Platform.OS === 'web' ?
-                <Image source={require("../../../assets/icons/search.svg")} width="23px" height="24px" alt="search" />
-                : <SearchSvg width="23px" height="24px" />
-              }
-            </TouchableOpacity>
-            <TouchableOpacity>
-              {Platform.OS === 'web' ?
-                <Image source={require("../../../assets/icons/plus.svg")} width="18px" height="18px" alt="search" />
-                : <PlusSvg width="18px" height="18px" />
-              }
-            </TouchableOpacity>
-          </HStack>
-          <Text style={styles.pageTitle}>Library</Text>
-          <HStack space={4} alignItems="center">
-            <TouchableOpacity style={{ width: 42, height: 42, overflow: 'hidden' }}>
-              {Platform.OS === 'web' ?
-                <Image source={require("../../../assets/icons/chat-left.svg")} width="42px" height="42px" alt="search" />
-                : <ChatSvg width="42px" height="42px" />
-              }
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Avatar
-                source={{ uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" }}
-                size="32px"
-              />
-            </TouchableOpacity>
-          </HStack>
-        </HStack>
-        {/* SearchBar */}
-        {searchOpened &&
-          <PresenceTransition
-            visible={searchOpened}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 250 } }}
-          >
-            <Stack marginX="39px" marginTop={5}>
-              <Input
-                w={"100%"} h={"35px"}
-                placeholder="Search"
-                backgroundColor={COLOR.primary}
-                color={COLOR.black}
-                placeholderTextColor="#B4B4B4"
-                fontSize={16}
-              />
-            </Stack>
-          </PresenceTransition>
-        }
-        {/* Content */}
-        <VStack space={5} marginY={7} marginX="25px">
-          {LibraryList.map((item, index) => {
-            return (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("LibraryExploreScreen", { library: item })}
-                key={`${index}-${item.title}`}
-              >
-                <HStack justifyContent="space-between" alignItems="center">
-                  <HStack space={3} alignItems="center">
-                    <Box style={styles.photo}>
-                      <Image
-                        source={{ uri: item.image }}
-                        width="100%" height="100%"
-                        resizeMode="cover"
-                        alt={item.title}
-                      />
-                    </Box>
-                    <VStack space={1}>
-                      <Text style={styles.cardTitle}>{item.title}</Text>
-                      <Text style={styles.username}>{item.username}</Text>
-                    </VStack>
-                  </HStack>
-                  {route.params && route.params.from === "settings" &&
-                    <TouchableOpacity onPress={() => addList(item.id)}>
-                      {Platform.OS === 'web' ? (
-                        addItems.includes(item.id) ?
-                          <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radiobtn" />
-                          : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radiobtn" />
-                      ) : (
-                        addItems.includes(item.id) ?
-                          <RadioSvg width="15px" height="15px" />
-                          : <ActiveRadioSvg width="15px" height="15px" />
-                      )}
-                    </TouchableOpacity>
-                  }
-                </HStack>
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScrollView flex={1}>
+          <HStack justifyContent="space-between" width={width} marginTop={3} paddingX="25px">
+            <HStack space={6} alignItems="center">
+              <TouchableOpacity onPress={() => setSearchOpened(!searchOpened)}>
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/search.svg")} width="23px" height="24px" alt="search" />
+                  : <SearchSvg width="23px" height="24px" />
+                }
               </TouchableOpacity>
-            );
-          })}
-        </VStack>
-        {route.params && route.params.from === "settings" &&
-          <VStack marginY={4} alignItems="center">
-            <TouchableOpacity
-              onPress={() => navigation.navigate("LibrarySettingsScreen", { library: route.params.library })}
-              style={styles.doneBtn}
+              <TouchableOpacity>
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/plus.svg")} width="18px" height="18px" alt="search" />
+                  : <PlusSvg width="18px" height="18px" />
+                }
+              </TouchableOpacity>
+            </HStack>
+            <Text style={styles.pageTitle}>Library</Text>
+            <HStack space={4} alignItems="center">
+              <TouchableOpacity style={{ width: 42, height: 42, overflow: 'hidden' }}>
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/chat-left.svg")} width="42px" height="42px" alt="search" />
+                  : <ChatSvg width="42px" height="42px" />
+                }
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Avatar
+                  source={{ uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" }}
+                  size="32px"
+                />
+              </TouchableOpacity>
+            </HStack>
+          </HStack>
+          {/* SearchBar */}
+          {searchOpened &&
+            <PresenceTransition
+              visible={searchOpened}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 250 } }}
             >
-              <Text style={styles.doneText}>Done</Text>
-            </TouchableOpacity>
+              <Stack marginX="39px" marginTop={5}>
+                <Input
+                  w={"100%"} h={"35px"}
+                  placeholder="Search"
+                  backgroundColor={COLOR.primary}
+                  color={COLOR.black}
+                  placeholderTextColor="#B4B4B4"
+                  fontSize={16}
+                />
+              </Stack>
+            </PresenceTransition>
+          }
+          {/* Content */}
+          <VStack space={5} marginY={7} marginX="25px">
+            {LibraryList.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("LibraryExploreScreen", { library: item })}
+                  key={`${index}-${item.title}`}
+                >
+                  <HStack justifyContent="space-between" alignItems="center">
+                    <HStack space={3} alignItems="center">
+                      <Box style={styles.photo}>
+                        <Image
+                          source={{ uri: item.image }}
+                          width="100%" height="100%"
+                          resizeMode="cover"
+                          alt={item.title}
+                        />
+                      </Box>
+                      <VStack space={1}>
+                        <Text style={styles.cardTitle}>{item.title}</Text>
+                        <Text style={styles.username}>{item.username}</Text>
+                      </VStack>
+                    </HStack>
+                    {route.params && route.params.from === "settings" &&
+                      <TouchableOpacity onPress={() => addList(item.id)}>
+                        {Platform.OS === 'web' ? (
+                          addItems.includes(item.id) ?
+                            <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radiobtn" />
+                            : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radiobtn" />
+                        ) : (
+                          addItems.includes(item.id) ?
+                            <RadioSvg width="15px" height="15px" />
+                            : <ActiveRadioSvg width="15px" height="15px" />
+                        )}
+                      </TouchableOpacity>
+                    }
+                  </HStack>
+                </TouchableOpacity>
+              );
+            })}
           </VStack>
-        }
-      </ScrollView>
+          {route.params && route.params.from === "settings" &&
+            <VStack marginY={4} alignItems="center">
+              <TouchableOpacity
+                onPress={() => navigation.navigate("LibrarySettingsScreen", { library: route.params.library })}
+                style={styles.doneBtn}
+              >
+                <Text style={styles.doneText}>Done</Text>
+              </TouchableOpacity>
+            </VStack>
+          }
+        </ScrollView>
+      </SafeAreaView>
       <Footer navigation={navigation} routeName={"LibraryScreen"} />
-    </SafeAreaView>
+    </>
   );
 };
 

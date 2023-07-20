@@ -28,120 +28,122 @@ const PlayExplore = ({ navigation, route }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
-    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
-      <ScrollView flex={1}>
-        {/* Header */}
-        <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 15 }}>
-            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
-              : <LeftSvg width="13px" height="19px" />
+    <>
+      <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
+        <ScrollView flex={1}>
+          {/* Header */}
+          <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 15 }}>
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
+                : <LeftSvg width="13px" height="19px" />
+              }
+            </TouchableOpacity>
+            <Text style={styles.pageTitle}>Explore</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="left" />
+                : <SearchSvg width="24px" height="24px" />
+              }
+            </TouchableOpacity>
+          </HStack>
+          {/* Card Image */}
+          <Center>
+            <Box style={styles.cardContainer}>
+              <Stack style={styles.cardImage}>
+                <Image
+                  source={artist.image}
+                  opacity={0.8}
+                  width="100%"
+                  height="100%"
+                  borderRadius="11px"
+                  alt={artist.title}
+                />
+              </Stack>
+              <Text style={styles.cardTitle} numberOfLines={2}>{artist.title}</Text>
+            </Box>
+          </Center>
+          {/* ToolBar */}
+          <HStack justifyContent="space-between" alignItems="center" paddingX="35px" marginTop="40px">
+            <TouchableOpacity>
+              <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="left" />
+                : <ShuffleSvg width="49px" height="49px" />
+              }
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
+              {isPaused ? (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
+                  : <PlaySvg width="42px" height="42px" />
+              ) : (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="play" />
+                  : <PauseSvg width="42px" height="42px" />
+              )}
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="left" />
+                : <RepeatSvg width="47px" height="47px" />
+              }
+            </TouchableOpacity>
+            <TouchableOpacity>
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/heart.svg")} width="29px" height="22.8px" alt="left" />
+                : <HeartSvg width="29px" height="22.8px" />
+              }
+            </TouchableOpacity>
+          </HStack>
+          {/* Music List */}
+          <VStack space={4} paddingX="35px" marginY="21px">
+            {
+              MusicList.map((item, index) =>
+                <HStack justifyContent="space-between" alignItems="center" key={index}>
+                  <TouchableOpacity onPress={() => setSelectedItem(item)}>
+                    <HStack space={2}>
+                      <Box style={styles.avatar} />
+                      <VStack justifyContent="space-between" paddingY="5px">
+                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.name}>{item.name}</Text>
+                      </VStack>
+                    </HStack>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
+                  </TouchableOpacity>
+                </HStack>
+              )
             }
-          </TouchableOpacity>
-          <Text style={styles.pageTitle}>Explore</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
-            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="left" />
-              : <SearchSvg width="24px" height="24px" />
-            }
-          </TouchableOpacity>
-        </HStack>
-        {/* Card Image */}
-        <Center>
-          <Box style={styles.cardContainer}>
-            <Stack style={styles.cardImage}>
-              <Image
-                source={artist.image}
-                opacity={0.8}
-                width="100%"
-                height="100%"
-                borderRadius="11px"
-                alt={artist.title}
-              />
-            </Stack>
-            <Text style={styles.cardTitle} numberOfLines={2}>{artist.title}</Text>
-          </Box>
-        </Center>
-        {/* ToolBar */}
-        <HStack justifyContent="space-between" alignItems="center" paddingX="35px" marginTop="40px">
-          <TouchableOpacity>
-            <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="left" />
-              : <ShuffleSvg width="49px" height="49px" />
-            }
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            {isPaused ? (
-              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
-                : <PlaySvg width="42px" height="42px" />
-            ) : (
-              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="play" />
-                : <PauseSvg width="42px" height="42px" />
-            )}
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="left" />
-              : <RepeatSvg width="47px" height="47px" />
-            }
-          </TouchableOpacity>
-          <TouchableOpacity>
-            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/heart.svg")} width="29px" height="22.8px" alt="left" />
-              : <HeartSvg width="29px" height="22.8px" />
-            }
-          </TouchableOpacity>
-        </HStack>
-        {/* Music List */}
-        <VStack space={4} paddingX="35px" marginY="21px">
-          {
-            MusicList.map((item, index) =>
-              <HStack justifyContent="space-between" alignItems="center" key={index}>
-                <TouchableOpacity onPress={() => setSelectedItem(item)}>
-                  <HStack space={2}>
-                    <Box style={styles.avatar} />
-                    <VStack justifyContent="space-between" paddingY="5px">
-                      <Text style={styles.title}>{item.title}</Text>
-                      <Text style={styles.name}>{item.name}</Text>
-                    </VStack>
-                  </HStack>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Entypo name="dots-three-horizontal" size={20} color={COLOR.primary} />
-                </TouchableOpacity>
+          </VStack>
+        </ScrollView>
+        {selectedItem &&
+          <HStack
+            width={width}
+            height="87px"
+            paddingX="35px"
+            justifyContent="space-between"
+            alignItems="center"
+            backgroundColor={COLOR.yellow}>
+            <TouchableOpacity onPress={() => navigation.navigate("PlayScreen", { music: selectedItem })}>
+              <HStack space={2}>
+                <Box style={styles.avatar} />
+                <VStack justifyContent="space-between" paddingY="5px">
+                  <Text style={styles.title}>{selectedItem.title}</Text>
+                  <Text style={styles.name}>{selectedItem.name}</Text>
+                </VStack>
               </HStack>
-            )
-          }
-        </VStack>
-      </ScrollView>
-      {selectedItem &&
-        <HStack
-          width={width}
-          height="87px"
-          paddingX="35px"
-          justifyContent="space-between"
-          alignItems="center"
-          backgroundColor={COLOR.yellow}>
-          <TouchableOpacity onPress={() => navigation.navigate("PlayScreen", { music: selectedItem })}>
-            <HStack space={2}>
-              <Box style={styles.avatar} />
-              <VStack justifyContent="space-between" paddingY="5px">
-                <Text style={styles.title}>{selectedItem.title}</Text>
-                <Text style={styles.name}>{selectedItem.name}</Text>
-              </VStack>
-            </HStack>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            {isPaused ? (
-              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="30px" height="30px" alt="play" />
-                : <PlaySvg width="30px" height="30px" />
-            ) : (
-              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="30px" height="30px" alt="play" />
-                : <PauseSvg width="30px" height="30px" />
-            )}
-          </TouchableOpacity>
-        </HStack>
-      }
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
+              {isPaused ? (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="30px" height="30px" alt="play" />
+                  : <PlaySvg width="30px" height="30px" />
+              ) : (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="30px" height="30px" alt="play" />
+                  : <PauseSvg width="30px" height="30px" />
+              )}
+            </TouchableOpacity>
+          </HStack>
+        }
+      </SafeAreaView>
       <Footer navigation={navigation} routeName="HomeScreen" />
-    </SafeAreaView>
+    </>
   );
 };
 
