@@ -237,7 +237,7 @@ const Progression = ({ navigation }) => {
             <TouchableOpacity
               style={styles.button}
               disabled={canPublish === true ? false : true}
-              onPress={() => navigation.navigate("HomeScreen")}
+              onPress={() => navigation.navigate("CongradulationsScreen")}
             >
               <Text fontFamily="Archivo-Bold" color={COLOR.black} fontSize={12}>PUBLISH</Text>
             </TouchableOpacity>

@@ -4,11 +4,8 @@ import { ScrollView, StyleSheet, TouchableOpacity, Dimensions, Alert } from "rea
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { postRequest } from "../../components/apiRequests";
-import * as env from "../../../env";
-
 // Constants
-import { COLOR } from "../../constants/Color";
+import { COLOR } from "../../../constants/Color";
 
 const { width } = Dimensions.get("window");
 
@@ -22,40 +19,40 @@ const SignUp = ({ navigation }) => {
 
   const onHandleSignup = async () => {
     const _postData = {
-        username: username,
-        password: password
+      username: username,
+      password: password
     };
     const _res = await postRequest(env.SERVER_URL + "/api/auth/signup", _postData);
     if (!_res) {
-        Alert.alert("Error", "Something wrong with server!");
-        return;
+      Alert.alert("Error", "Something wrong with server!");
+      return;
     }
     if (!_res.result) {
-        Alert.alert("Error", _res.error);
-        return;
+      Alert.alert("Error", _res.error);
+      return;
     }
-    navigation.navigate("SignInScreen");
+    navigation.navigate("SignUpDetailScreen")
   }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
-        <Stack marginTop={5} paddingLeft={"36px"}>
+        <Stack marginTop={5} paddingLeft={"36px"} zIndex={99}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="left" size={20} color={COLOR.white} />
           </TouchableOpacity>
-          <Box position="absolute" width={width} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-            <Text style={styles.text}>
-              Sign Up
-            </Text>
-          </Box>
         </Stack>
-        <Stack alignItems="center" marginTop={10} marginBottom={8}>
+        <Box position="absolute" marginTop={5} width={width} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
+          <Text style={styles.title}>
+            Sign Up
+          </Text>
+        </Box>
+        <Stack alignItems="center" marginTop={16} marginBottom={8}>
           <Text style={styles.text}>
             Are You A
           </Text>
         </Stack>
-        <HStack justifyContent="center" alignItems="center" space={3}>
+        <HStack justifyContent="space-between" alignItems="center" paddingX={"36px"}>
           <TouchableOpacity
             onPress={() => setSelectedCard("creator")}
             style={selectedCard === "creator" ? styles.selectedCard : styles.card}
@@ -67,18 +64,20 @@ const SignUp = ({ navigation }) => {
               Creator
             </Text>
           </TouchableOpacity>
-          <Text style={{ ...styles.text, fontSize: 10 }}>
-            Or
-          </Text>
           <TouchableOpacity
-            onPress={() => setSelectedCard("fan")}
-            style={selectedCard === "fan" ? styles.selectedCard : styles.card}
+            onPress={() => setSelectedCard("listener")}
+            style={selectedCard === "listener" ? styles.selectedCard : styles.card}
           >
-            <Text style={styles.text}>
-              Music
+            <Text style={styles.text} numberOfLines={2}>
+              Listener
             </Text>
-            <Text style={styles.text}>
-              Fan
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setSelectedCard("podcaster")}
+            style={selectedCard === "podcaster" ? styles.selectedCard : styles.card}
+          >
+            <Text style={styles.text} numberOfLines={2}>
+              Podcaster
             </Text>
           </TouchableOpacity>
         </HStack>
@@ -87,9 +86,12 @@ const SignUp = ({ navigation }) => {
             <Text style={styles.label}>Username</Text>
             <Input
               w={"100%"} h={"35px"}
+              borderRadius="30px"
               borderColor={"black"}
-              backgroundColor={"rgba(248, 248, 248, 0.60)"}
+              backgroundColor={COLOR.darkGray1}
               color={COLOR.white}
+              cursorColor={COLOR.white}
+              overflow="hidden"
               fontSize={16}
               value={username}
               onChangeText={(text) => setUsername(text)}
@@ -99,33 +101,43 @@ const SignUp = ({ navigation }) => {
             <Text style={styles.label}>Password</Text>
             <Input
               w={"100%"} h={"35px"}
+              borderRadius="30px"
               color={COLOR.white}
               fontSize={16}
               borderColor={"black"}
-              backgroundColor={"rgba(248, 248, 248, 0.60)"}
+              backgroundColor={COLOR.darkGray1}
+              cursorColor={COLOR.white}
+              overflow="hidden"
               type={showPass ? "text" : "password"}
               InputRightElement={
-                <Pressable onPress={() => setShowPass(!showPass)}>
-                  <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
-                </Pressable>
+                password ?
+                  <Pressable onPress={() => setShowPass(!showPass)}>
+                    <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
+                  </Pressable>
+                  : <></>
               }
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
           </Stack>
           <Stack>
-            <Text style={styles.label}>Confirm Password</Text>
+            <Text style={styles.label}>Password Confirmation</Text>
             <Input
               w={"100%"} h={"35px"}
+              borderRadius="30px"
               borderColor={"black"}
-              backgroundColor={"rgba(248, 248, 248, 0.60)"}
+              backgroundColor={COLOR.darkGray1}
               color={COLOR.white}
               fontSize={16}
+              cursorColor={COLOR.white}
+              overflow="hidden"
               type={showPass ? "text" : "password"}
               InputRightElement={
-                <Pressable onPress={() => setShowPass(!showPass)}>
-                  <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
-                </Pressable>
+                confirmPass ?
+                  <Pressable onPress={() => setShowPass(!showPass)}>
+                    <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
+                  </Pressable>
+                  : <></>
               }
               value={confirmPass}
               onChangeText={(text) => setConfirmPass(text)}
@@ -138,7 +150,7 @@ const SignUp = ({ navigation }) => {
             style={styles.submit}
           >
             <Text style={{ fontFamily: "Archivo-Bold", color: COLOR.black, textTransform: "uppercase" }}>
-              Let's Begin
+              Next
             </Text>
           </TouchableOpacity>
         </Stack>
@@ -148,13 +160,19 @@ const SignUp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  title: {
+    fontFamily: "Archivo-SemiBold",
+    color: COLOR.white,
+    fontSize: 14,
+    textTransform: "uppercase",
+  },
   text: {
     fontFamily: "Archivo-SemiBold",
     color: COLOR.white,
     textTransform: "uppercase"
   },
   card: {
-    width: 119,
+    width: "31%",
     height: 119,
     borderRadius: 9,
     borderWidth: 1,
@@ -163,7 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   selectedCard: {
-    width: 119,
+    width: "31%",
     height: 119,
     borderRadius: 9,
     backgroundColor: COLOR.yellow,
@@ -172,7 +190,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: "Archivo",
-    color: COLOR.gray,
+    fontSize: 12,
+    color: COLOR.primary,
     textTransform: "uppercase"
   },
   submit: {
