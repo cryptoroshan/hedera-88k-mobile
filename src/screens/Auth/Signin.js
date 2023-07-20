@@ -23,17 +23,17 @@ const SignIn = ({ navigation }) => {
 
   const onHandleSignin = async () => {
     const _postData = {
-        username: user_name,
-        password: password
+      username: user_name,
+      password: password
     };
     const _res = await postRequest(env.SERVER_URL + "/api/auth/signin", _postData);
     if (!_res) {
-        Alert.alert("Error", "Something wrong with server!");
-        return;
+      Alert.alert("Error", "Something wrong with server!");
+      return;
     }
     if (!_res.result) {
-        Alert.alert("Error", _res.error);
-        return;
+      Alert.alert("Error", _res.error);
+      return;
     }
     dispatch(setUsername(user_name));
     navigation.navigate("HomeScreen");
@@ -42,43 +42,49 @@ const SignIn = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
       <ScrollView>
-        <Stack marginTop={5} paddingLeft={"36px"}>
+        <Stack marginTop={5} paddingLeft={"36px"} zIndex={99}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="left" size={20} color={COLOR.white} />
           </TouchableOpacity>
-          <Box position="absolute" width={width} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-            <Text style={styles.text}>
-              Sign In
-            </Text>
-          </Box>
         </Stack>
+        <Box position="absolute" marginTop={5} width={width} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
+          <Text style={styles.text}>
+            Sign In
+          </Text>
+        </Box>
         <VStack space={10} paddingX={"36px"} marginTop={"3/5"} marginBottom={8}>
           <Stack>
             <Text style={styles.label}>username</Text>
             <Input
               w={"100%"} h={"35px"}
+              borderRadius="30px"
               borderColor={"black"}
-              backgroundColor={"rgba(248, 248, 248, 0.60)"}
+              backgroundColor={COLOR.darkGray1}
               color={COLOR.white}
               fontSize={16}
+              overflow="hidden"
               type="text"
-              value={user_name}
-              onChangeText={(text) => setUserName(text)}
+              value={username}
+              onChangeText={(text) => setUsername(text)}
             />
           </Stack>
           <Stack>
             <Text style={styles.label}>password</Text>
             <Input
               w={"100%"} h={"35px"}
+              borderRadius="30px"
               color={COLOR.white}
               fontSize={16}
               borderColor={"black"}
-              backgroundColor={"rgba(248, 248, 248, 0.60)"}
+              backgroundColor={COLOR.darkGray1}
+              overflow="hidden"
               type={showPass ? "text" : "password"}
               InputRightElement={
-                <Pressable onPress={() => setShowPass(!showPass)}>
-                  <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
-                </Pressable>
+                password ?
+                  <Pressable onPress={() => setShowPass(!showPass)}>
+                    <Icon as={<MaterialIcons name={showPass ? "visibility" : "visibility-off"} />} size={5} mr="2" color="muted" />
+                  </Pressable>
+                  : <></>
               }
               value={password}
               onChangeText={(text) => setPassword(text)}
@@ -108,7 +114,8 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: "Archivo",
-    color: COLOR.gray,
+    fontSize: 12,
+    color: COLOR.primary,
     textTransform: "uppercase"
   },
   submit: {

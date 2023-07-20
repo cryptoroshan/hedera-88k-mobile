@@ -2,11 +2,15 @@
  * basic colors
  */
 export const COLOR = {
-	primary: '#f8f8f8',
+	primary: 'rgba(248, 248, 248, 1)',
 	lightGray: 'rgba(248, 248, 248, 0.7)',
 	lightGray1: 'rgba(248, 248, 248, 0.88)',
 	lightGray2: 'rgba(248, 248, 248, 0.35)',
+	lightGray3: 'rgba(248, 248, 248, 0.60)',
 	darkGray: '#424242',
+	darkGray1: 'rgba(248, 248, 248, 0.20)',
+	darkGray2: 'rgba(248, 248, 248, 0.10)',
+	darkGray3: 'rgba(248, 248, 248, 0.30)',
 
 	gray: '#B9B2C4',
 	gray1: '#a0a194',

@@ -5,6 +5,13 @@ import { COLOR } from "../constants/Color";
 import Welcome from "../screens/Welcome";
 import SignIn from "../screens/Auth/Signin";
 import SignUp from "../screens/Auth/Signup";
+import SignupDetail from "../screens/Auth/Signup/SignupDetails";
+import PayoutSetup from "../screens/Auth/Signup/PayoutSetup";
+import PayoutMethod from "../screens/Auth/Signup/PayoutMethod";
+import BankAccount from "../screens/Auth/Signup/BankAccount";
+import DebitCard from "../screens/Auth/Signup/DebitCard";
+import WireTransfer from "../screens/Auth/Signup/WireTransfer";
+import Paypal from "../screens/Auth/Signup/Paypal";
 
 import Home from "../screens/Home";
 
@@ -21,6 +28,7 @@ import Play from "../screens/Explore/Play";
 
 import Publish from "../screens/Publish";
 import Progression from "../screens/Publish/Progression";
+import Congradulations from "../screens/Publish/Congradulations";
 
 import Library from "../screens/Library";
 import LibraryExplore from "../screens/Library/LibraryExplore";
@@ -47,6 +55,13 @@ const AppNavigation = () => {
       <Stack.Screen name="WelcomeScreen" component={Welcome} />
       <Stack.Screen name="SignInScreen" component={SignIn} />
       <Stack.Screen name="SignUpScreen" component={SignUp} />
+      <Stack.Screen name="SignUpDetailScreen" component={SignupDetail} />
+      <Stack.Screen name="PayoutSetupScreen" component={PayoutSetup} />
+      <Stack.Screen name="PayoutMethodScreen" component={PayoutMethod} />
+      <Stack.Screen name="BankAccountScreen" component={BankAccount} />
+      <Stack.Screen name="DebitCardScreen" component={DebitCard} />
+      <Stack.Screen name="WireTransferScreen" component={WireTransfer} />
+      <Stack.Screen name="PaypalScreen" component={Paypal} />
 
       <Stack.Screen name="HomeScreen" component={Home} />
       <Stack.Screen name="PublishScreen" component={Publish} />
@@ -65,6 +80,7 @@ const AppNavigation = () => {
       <Stack.Screen name="LibrarySettingsScreen" component={LibrarySettings} />
 
       <Stack.Screen name="ProgressionScreen" component={Progression} />
+      <Stack.Screen name="CongradulationsScreen" component={Congradulations} />
 
       <Stack.Screen name="CreatorProfileScreen" component={CreatorProfile} />
       <Stack.Screen name="FanProfileScreen" component={FanProfile} />
