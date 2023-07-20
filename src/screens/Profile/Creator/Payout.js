@@ -1,12 +1,15 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Center, HStack, Stack, Text } from 'native-base';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Center, HStack, Image, Stack, Text } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BarChart, XAxis } from 'react-native-svg-charts';
-import { SvgXml, Rect } from 'react-native-svg';
+import { Rect } from 'react-native-svg';
 
 // Icons
-import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, LeftIcon } from '../../../constants/icons';
+import ArrowDownSvg from "../../../../assets/icons/arrow-down.svg";
+import ArrowLeftSvg from "../../../../assets/icons/arrow-left.svg";
+import ArrowRightSvg from "../../../../assets/icons/arrow-right.svg";
+import LeftSvg from "../../../../assets/icons/left.svg";
 
 // Constants
 import { COLOR } from '../../../constants/Color';
@@ -60,11 +63,13 @@ const Decorator = ({ x, y, data }) => (
 const Payout = ({ navigation }) => {
 
   return (
-    <SafeAreaView flex={1} style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HStack alignItems="center" height="58px">
         <Stack position="absolute" zIndex={99}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <SvgXml xml={LeftIcon} width={11} height={17} />
+            {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/left.svg")} width="11px" height="17px" />
+              : <LeftSvg width="11px" height="17px" />
+            }
           </TouchableOpacity>
         </Stack>
         <Center width="100%">
@@ -82,7 +87,9 @@ const Payout = ({ navigation }) => {
             <Text fontFamily="Archivo" fontSize={9} color={COLOR.white} letterSpacing="0.09px">
               May 2022
             </Text>
-            <SvgXml xml={ArrowDownIcon} width={7} height={7} />
+            {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/arrow-down.svg")} width="7px" height="7px" />
+              : <ArrowDownSvg width="7px" height="7px" />
+            }
           </HStack>
         </TouchableOpacity>
       </HStack>
@@ -99,7 +106,9 @@ const Payout = ({ navigation }) => {
       </Text>
       <HStack justifyContent="space-between" alignItems="center">
         <TouchableOpacity>
-          <SvgXml xml={ArrowLeftIcon} width={7} height={7} />
+          {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/arrow-left.svg")} width="7px" height="7px" />
+            : <ArrowLeftSvg width="7px" height="7px" />
+          }
         </TouchableOpacity>
         <Stack width="95%">
           <BarChart
@@ -121,13 +130,17 @@ const Payout = ({ navigation }) => {
           />
         </Stack>
         <TouchableOpacity>
-          <SvgXml xml={ArrowRightIcon} width={7} height={7} />
+          {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/arrow-right.svg")} width="7px" height="7px" />
+            : <ArrowRightSvg width="7px" height="7px" />
+          }
         </TouchableOpacity>
       </HStack>
       <HStack justifyContent="space-between" alignItems="center" marginTop="13px">
         <HStack alignItems="center" space={2}>
           <TouchableOpacity>
-            <SvgXml xml={ArrowLeftIcon} width={7} height={7} />
+            {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/arrow-left.svg")} width="7px" height="7px" />
+              : <ArrowLeftSvg width="7px" height="7px" />
+            }
           </TouchableOpacity>
           <Text fontFamily="Archivo" fontSize={12} color={COLOR.primary}>
             2021
@@ -141,7 +154,9 @@ const Payout = ({ navigation }) => {
             2023
           </Text>
           <TouchableOpacity>
-            <SvgXml xml={ArrowRightIcon} width={7} height={7} />
+            {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/arrow-right.svg")} width="7px" height="7px" />
+              : <ArrowRightSvg width="7px" height="7px" />
+            }
           </TouchableOpacity>
         </HStack>
       </HStack>
@@ -151,6 +166,7 @@ const Payout = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: COLOR.black,
     paddingHorizontal: 20,
   },

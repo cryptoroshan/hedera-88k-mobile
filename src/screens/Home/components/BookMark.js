@@ -109,6 +109,7 @@ const BookMark = ({ isOpen, onClose }) => {
             </Actionsheet.Content>
             :
             <Actionsheet.Content
+              w="100%"
               h={height * 2 / 3}
               backgroundColor={COLOR.yellow}
               bottom="75px"
@@ -132,6 +133,7 @@ const BookMark = ({ isOpen, onClose }) => {
                   backgroundColor={COLOR.black}
                   borderColor="transparent"
                   borderRadius="7px"
+                  width="100%"
                   height="36px"
                   fontSize="16px"
                   color={COLOR.white}
@@ -141,12 +143,24 @@ const BookMark = ({ isOpen, onClose }) => {
                 />
                 <TouchableOpacity
                   style={{
-                    ...styles.begin,
+                    width: "50%",
+                    paddingVertical: 20,
+                    alignItems: 'center',
+                    borderWidth: 1,
+                    borderColor: COLOR.black,
+                    borderRadius: 50,
+                    marginTop: 20,
+                    marginBottom: 10,
                     backgroundColor: name ? COLOR.black : "transparent"
                   }}
                   disabled={name ? false : true}
                 >
-                  <Text style={{ ...styles.beginText, color: name ? COLOR.white : COLOR.black }}>
+                  <Text style={{
+                    fontFamily: "Archivo-Bold",
+                    textTransform: "uppercase",
+                    fontSize: 14,
+                    color: name ? COLOR.white : COLOR.black
+                  }}>
                     Let's Begin
                   </Text>
                 </TouchableOpacity>
@@ -219,21 +233,6 @@ const styles = StyleSheet.create({
     color: COLOR.black,
     textTransform: "uppercase",
   },
-  begin: {
-    width: "50%",
-    paddingVertical: 20,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: COLOR.black,
-    borderRadius: 50,
-    marginTop: 20,
-    marginBottom: 10
-  },
-  beginText: {
-    fontFamily: "Archivo-Bold",
-    textTransform: "uppercase",
-    fontSize: 14
-  }
 });
 
 export default BookMark;

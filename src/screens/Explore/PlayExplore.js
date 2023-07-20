@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, Platform, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Box, Center, HStack, Image, Stack, Text, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
 
 // Icons
-import {
-  LeftIcon,
-  SearchIcon,
-  PlayIcon,
-  PauseIcon,
-  ShuffleIcon,
-  RepeatIcon,
-  HeartIcon,
-} from "../../constants/icons";
 import { Entypo } from "@expo/vector-icons";
+import LeftSvg from "../../../assets/icons/left.svg";
+import SearchSvg from "../../../assets/icons/search.svg";
+import PlaySvg from "../../../assets/icons/play.svg";
+import PauseSvg from "../../../assets/icons/pause.svg";
+import ShuffleSvg from "../../../assets/icons/shuffle.svg";
+import RepeatSvg from "../../../assets/icons/repeat.svg";
+import HeartSvg from "../../../assets/icons/heart.svg";
 
 // Constants
 import Footer from "../../components/Footer";
@@ -30,20 +28,20 @@ const PlayExplore = ({ navigation, route }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
-    <SafeAreaView
-      flex={1}
-      width="100%"
-      backgroundColor={COLOR.black}
-    >
+    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
         {/* Header */}
         <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 15 }}>
-            <SvgXml xml={LeftIcon} width={13} height={19} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
+              : <LeftSvg width="13px" height="19px" />
+            }
           </TouchableOpacity>
           <Text style={styles.pageTitle}>Explore</Text>
           <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
-            <SvgXml xml={SearchIcon} width={24} height={24} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="left" />
+              : <SearchSvg width="24px" height="24px" />
+            }
           </TouchableOpacity>
         </HStack>
         {/* Card Image */}
@@ -68,16 +66,28 @@ const PlayExplore = ({ navigation, route }) => {
             <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={ShuffleIcon} width={49} height={49} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="left" />
+              : <ShuffleSvg width="49px" height="49px" />
+            }
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            <SvgXml xml={isPaused ? PlayIcon : PauseIcon} width={42} height={42} />
+            {isPaused ? (
+              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
+                : <PlaySvg width="42px" height="42px" />
+            ) : (
+              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="play" />
+                : <PauseSvg width="42px" height="42px" />
+            )}
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={RepeatIcon} width={47} height={47} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="left" />
+              : <RepeatSvg width="47px" height="47px" />
+            }
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={HeartIcon} width={29} height={22.8} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/heart.svg")} width="29px" height="22.8px" alt="left" />
+              : <HeartSvg width="29px" height="22.8px" />
+            }
           </TouchableOpacity>
         </HStack>
         {/* Music List */}
@@ -120,7 +130,13 @@ const PlayExplore = ({ navigation, route }) => {
             </HStack>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            <SvgXml xml={isPaused ? PlayIcon : PauseIcon} width={30} height={30} />
+            {isPaused ? (
+              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="30px" height="30px" alt="play" />
+                : <PlaySvg width="30px" height="30px" />
+            ) : (
+              Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="30px" height="30px" alt="play" />
+                : <PauseSvg width="30px" height="30px" />
+            )}
           </TouchableOpacity>
         </HStack>
       }

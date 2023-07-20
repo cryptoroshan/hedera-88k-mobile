@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Box, HStack, Input, Text, VStack, useToast } from "native-base";
-import { ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Box, HStack, Input, Text, VStack, Image, useToast } from "native-base";
+import { Platform, ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SvgXml } from "react-native-svg";
 import * as DocumentPicker from "expo-document-picker";
 import { useSelector } from 'react-redux';
 import * as FileSystem from 'expo-file-system';
 
 // Icons
-import { PublishIcon } from "../../constants/icons";
+import PublishSvg from "../../../assets/icons/publish.svg";
 
 // Components
 import Footer from "../../components/Footer";
@@ -18,11 +17,8 @@ import * as env from "../../../env";
 // Constants
 import { COLOR } from "../../constants/Color";
 
-// Utils
-import showToast from "../../utils/showToast";
-
 const Publish = ({ navigation }) => {
-  const user = useSelector( state => state.user);
+  const user = useSelector(state => state.user);
 
   const toast = useToast();
 
@@ -71,28 +67,31 @@ const Publish = ({ navigation }) => {
     if (music === null) {
       toast.show({
         render: () => {
-          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
-                  Upload Music File!
-                </Box>;
-        }
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mt={10}>
+            Upload Music File!
+          </Box>;
+        },
+        placement: "top"
       });
       return false;
     } else if (title === null || title === "") {
       toast.show({
         render: () => {
-          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
-                  Input Title of Music!
-                </Box>;
-        }
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mt={10}>
+            Input Title of Music!
+          </Box>;
+        },
+        placement: "top"
       });
       return false;
     } else if (art === null) {
       toast.show({
         render: () => {
-          return <Box bg="warning.500" px="2" py="1" rounded="sm" mb={5}>
-                  Upload Art Image!
-                </Box>;
-        }
+          return <Box bg="warning.500" px="2" py="1" rounded="sm" mt={10}>
+            Upload Art Image!
+          </Box>;
+        },
+        placement: "top"
       });
       return false;
     } else {
@@ -101,65 +100,66 @@ const Publish = ({ navigation }) => {
   };
 
   const next = async () => {
-      try {
-          const isValidation = checkValidation();
-          if (isValidation) {
-            let uploadData = {
-              music: music,
-              title: title,
-              art: art,
-              video: video
-            };
-//            navigation.navigate("ProgressionScreen", uploadData);
-          }
-
-          // upload music
-          const _musicRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/music-upload", music.uri, {
-            fieldName: 'file',
-            httpMethod: 'PATCH',
-            uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
-          });
-          // uploaded music name
-          const uploadedMusicName = JSON.parse(_musicRes.body).data;
-
-          // upload art
-          const _artRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/art-upload", art.uri, {
-            fieldName: 'file',
-            httpMethod: 'PATCH',
-            uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
-          });
-          // uploaded art name
-          const uploadedArtName = JSON.parse(_artRes.body).data;
-
-          // upload video
-          const _videoRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/video-upload", video.uri, {
-            fieldName: 'file',
-            httpMethod: 'PATCH',
-            uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
-          });
-          // uploaded video name
-          const uploadedVideoName = JSON.parse(_videoRes.body).data;
-
-          const _postData = {
-              username: user.username,
-              music: uploadedMusicName,
-              musicTitle: title,
-              art: uploadedArtName,
-              video: uploadedVideoName
-          };
-          const _res = await postRequest(env.SERVER_URL + "/api/88k/upload_publish_info", _postData);
-          if (!_res) {
-              Alert.alert("Error", "Something wrong with server!");
-              return;
-          }
-          if (!_res.result) {
-              Alert.alert("Error", _res.error);
-              return;
-          }
-          navigation.navigate("ProgressionScreen");
-      } catch (error) {
-        console.log(error);
+    try {
+      const isValidation = checkValidation();
+      if (isValidation) {
+        let uploadData = {
+          music: music,
+          title: title,
+          art: art,
+          video: video
+        };
+        console.log("uploadData::", uploadData);
+        navigation.navigate("ProgressionScreen", uploadData);
       }
+
+      // upload music
+      const _musicRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/music-upload", music.uri, {
+        fieldName: 'file',
+        httpMethod: 'PATCH',
+        uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+      });
+      // uploaded music name
+      const uploadedMusicName = JSON.parse(_musicRes.body).data;
+
+      // upload art
+      const _artRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/art-upload", art.uri, {
+        fieldName: 'file',
+        httpMethod: 'PATCH',
+        uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+      });
+      // uploaded art name
+      const uploadedArtName = JSON.parse(_artRes.body).data;
+
+      // upload video
+      const _videoRes = await FileSystem.uploadAsync(env.SERVER_URL + "/api/88k/video-upload", video.uri, {
+        fieldName: 'file',
+        httpMethod: 'PATCH',
+        uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+      });
+      // uploaded video name
+      const uploadedVideoName = JSON.parse(_videoRes.body).data;
+
+      const _postData = {
+        username: user.username,
+        music: uploadedMusicName,
+        musicTitle: title,
+        art: uploadedArtName,
+        video: uploadedVideoName
+      };
+      const _res = await postRequest(env.SERVER_URL + "/api/88k/upload_publish_info", _postData);
+      if (!_res) {
+        Alert.alert("Error", "Something wrong with server!");
+        return;
+      }
+      if (!_res.result) {
+        Alert.alert("Error", _res.error);
+        return;
+      }
+      navigation.navigate("ProgressionScreen");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -168,8 +168,11 @@ const Publish = ({ navigation }) => {
         <Text style={styles.title}>Publish</Text>
         <VStack width="100%" paddingX="31px">
           <TouchableOpacity onPress={pickAndUploadMusic} style={styles.musicUpload}>
-            <SvgXml xml={PublishIcon} width="19px" height="18px" />
-            <Text style={styles.musicUploadText}>{ music === null ? "Upload your music file here" : music.name }</Text>
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
+              : <PublishSvg width="19px" height="18px" />
+            }
+            <Text style={styles.musicUploadText}>{music === null ? "Upload your music file here" : music.name}</Text>
           </TouchableOpacity>
           <Text style={styles.description}>
             Our AI will scan your file and detect the voices, beats, and lyrics
@@ -191,15 +194,21 @@ const Publish = ({ navigation }) => {
           <Box marginTop="32px">
             <Text style={styles.label}>Cover art for your music</Text>
             <TouchableOpacity onPress={pickAndUploadArt} style={styles.fileUpload}>
-              <SvgXml xml={PublishIcon} width="19px" height="18px" />
-              <Text style={styles.fileUploadText}>{ art === null ? "Upload 1 image here" : art.name }</Text>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
+                : <PublishSvg width="19px" height="18px" />
+              }
+              <Text style={styles.fileUploadText}>{art === null ? "Upload 1 image here" : art.name}</Text>
             </TouchableOpacity>
           </Box>
           <Box marginTop="32px">
             <Text style={styles.label}>{`Video for your music (optional)`}</Text>
             <TouchableOpacity onPress={pickAndUploadVideo} style={styles.fileUpload}>
-              <SvgXml xml={PublishIcon} width="19px" height="18px" />
-              <Text style={styles.fileUploadText}>{ video === null ? "Upload 1 video here" : video.name }</Text>
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/publish.svg")} width="19px" height="18px" alt="chat" />
+                : <PublishSvg width="19px" height="18px" />
+              }
+              <Text style={styles.fileUploadText}>{video === null ? "Upload 1 video here" : video.name}</Text>
             </TouchableOpacity>
           </Box>
         </VStack>

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { Platform, StyleSheet, TouchableOpacity } from "react-native";
 import { Box, Center, HStack, Image, Stack, Text, VStack, } from "native-base";
-import { SvgXml } from "react-native-svg";
 
 // Icons
 import { Entypo } from "@expo/vector-icons";
-import { LeftIcon, PlayIcon, PlusIcon, RadioBtn, ActiveRadioBtn } from "../../../../constants/icons";
+import LeftSvg from "../../../../../assets/icons/left.svg";
+import PlaySvg from "../../../../../assets/icons/play.svg";
+import PlusSvg from "../../../../../assets/icons/plus.svg";
+import RadioSvg from "../../../../../assets/icons/radiobtn.svg";
+import ActiveRadioSvg from "../../../../../assets/icons/radiobtn_active.svg";
 
 // Constants
 import { COLOR } from "../../../../constants/Color";
@@ -53,7 +56,9 @@ const MusicTab = () => {
                     alt="profile-1"
                   />
                   <HStack width="100%" height="100%" justifyContent="center" alignItems="center">
-                    <SvgXml xml={PlusIcon} width={31} height={31} />
+                    {Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/plus.svg")} width="31px" height="31px" alt="plus" />
+                      : <PlusSvg width="31px" height="31px" />
+                    }
                   </HStack>
                 </Box>
                 <Box style={styles.draftImage2}>
@@ -88,7 +93,9 @@ const MusicTab = () => {
                     size={104} borderRadius={10} style={{ position: "absolute" }}
                   />
                   <Box style={styles.playBtn}>
-                    <SvgXml xml={PlayIcon} width={30} height={30} />
+                    {Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/play.svg")} width="30px" height="30px" alt="plus" />
+                      : <PlaySvg width="30px" height="30px" />
+                    }
                   </Box>
                 </Box>
                 <VStack justifyContent="center" space={2}>
@@ -176,7 +183,9 @@ const MusicTab = () => {
           <HStack justifyContent="space-between" alignItems="center" width="100%" marginBottom="20px">
             <HStack justifyContent="flex-start" alignItems="center" space={3}>
               <TouchableOpacity onPress={() => setIsDraftFiles(false)}>
-                <SvgXml xml={LeftIcon} width={11} height={17} />
+                {Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/left.svg")} width="11px" height="17px" alt="left" />
+                  : <LeftSvg width="11px" height="17px" />
+                }
               </TouchableOpacity>
               <Text fontFamily="Archivo-Bold" fontSize={20} color={COLOR.white}>
                 Draft Files
@@ -198,9 +207,13 @@ const MusicTab = () => {
                   </HStack>
                   {
                     selectedItems.filter(selectedItem => selectedItem.id === item.id).length > 0 ?
-                      <SvgXml xml={ActiveRadioBtn} width={14} height={14} />
+                      (Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/radiobtn_active.svg")} width="14px" height="14px" alt="plus" />
+                        : <ActiveRadioSvg width="14px" height="14px" />
+                      )
                       :
-                      <SvgXml xml={RadioBtn} width={14} height={14} />
+                      (Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/radiobtn.svg")} width="14px" height="14px" alt="plus" />
+                        : <RadioSvg width="14px" height="14px" />
+                      )
                   }
                 </HStack>
               </TouchableOpacity>

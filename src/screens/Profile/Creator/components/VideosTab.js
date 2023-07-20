@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { Box, HStack, Image, Stack, Text } from "native-base";
-import { SvgXml } from "react-native-svg";
 
 // Icons
-import { PlayIcon } from "../../../../constants/icons";
+import PlaySvg from "../../../../../assets/icons/play.svg";
 
 // Constants
 import { COLOR } from "../../../../constants/Color";
@@ -25,7 +24,9 @@ const VideosTab = () => {
               alt={`${item.name}-${index}`}
             />
             <TouchableOpacity style={styles.playbtn}>
-              <SvgXml xml={PlayIcon} width={24} height={24} />
+              {Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/play.svg")} width="24px" height="24px" alt="plus" />
+                : <PlaySvg width="24px" height="24px" />
+              }
             </TouchableOpacity>
           </Box>
         )}

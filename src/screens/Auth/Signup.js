@@ -21,13 +21,11 @@ const SignUp = ({ navigation }) => {
   const [showPass, setShowPass] = useState(false);
 
   const onHandleSignup = async () => {
-    console.log(selectedCard, username, password, confirmPass);
     const _postData = {
         username: username,
         password: password
     };
     const _res = await postRequest(env.SERVER_URL + "/api/auth/signup", _postData);
-    console.log(_res);
     if (!_res) {
         Alert.alert("Error", "Something wrong with server!");
         return;
@@ -40,7 +38,7 @@ const SignUp = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView flex={1} backgroundColor={COLOR.black}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
         <Stack marginTop={5} paddingLeft={"36px"}>
           <TouchableOpacity onPress={() => navigation.goBack()}>

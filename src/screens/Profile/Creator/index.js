@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Box, HStack, Image, Text, VStack } from "native-base";
-import { TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { TouchableOpacity, StyleSheet, ScrollView, Platform } from "react-native";
 import { SvgXml } from "react-native-svg";
 
 // Icons
 import { AntDesign, Entypo, FontAwesome, FontAwesome5, Fontisto, MaterialCommunityIcons } from "@expo/vector-icons";
-import { InfinityIcon, TikTokIcon, WalletIcon1 } from "../../../constants/icons";
+import InfinitySvg from "../../../../assets/icons/infinity.svg";
+import TikTokSvg from "../../../../assets/icons/tiktok.svg";
+import WalletSvg from "../../../../assets/icons/wallet1.svg";
 
 // Constants
 import { COLOR } from "../../../constants/Color";
@@ -40,7 +42,9 @@ const CreatorProfile = ({ navigation }) => {
               <AntDesign name="left" size={20} color={COLOR.white} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("PayoutScreen")}>
-              <SvgXml xml={WalletIcon1} width={44} height={44} />
+              {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/wallet1.svg")} width="44px" height="44px" />
+                : <WalletSvg width="44px" height="44px" />
+              }
             </TouchableOpacity>
           </HStack>
           <VStack height="auto">
@@ -50,7 +54,9 @@ const CreatorProfile = ({ navigation }) => {
                   Billie Eilish
                 </Text>
                 <TouchableOpacity style={styles.infinityCircle}>
-                  <SvgXml xml={InfinityIcon} width={20} height={20} />
+                  {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/infinity.svg")} width="20px" height="20px" />
+                    : <InfinitySvg width="20px" height="20px" />
+                  }
                 </TouchableOpacity>
               </HStack>
               <TouchableOpacity>
@@ -65,7 +71,9 @@ const CreatorProfile = ({ navigation }) => {
                 <Fontisto name="applemusic" size={24} color={COLOR.white} />
               </TouchableOpacity>
               <TouchableOpacity>
-                <SvgXml xml={TikTokIcon} width={24} height={24} />
+                {Platform.OS === 'web' ? <Image source={require("../../../../assets/icons/tiktok.svg")} width="24px" height="24px" />
+                  : <TikTokSvg width="24px" height="24px" />
+                }
               </TouchableOpacity>
               <TouchableOpacity>
                 <AntDesign name="instagram" size={24} color={COLOR.white} />

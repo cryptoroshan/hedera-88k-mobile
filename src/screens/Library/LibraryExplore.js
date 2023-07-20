@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, Platform, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Box, Center, HStack, Image, Stack, Text, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SvgXml } from "react-native-svg";
 
 // Icons
-import {
-  LeftIcon,
-  SearchIcon,
-  PlayIcon,
-  PauseIcon,
-  ShuffleIcon,
-  RepeatIcon,
-  ShareIcon,
-  PlusIcon,
-  RadioBtn,
-  ActiveRadioBtn,
-} from "../../constants/icons";
 import { Entypo } from "@expo/vector-icons";
+import LeftSvg from "../../../assets/icons/left.svg";
+import SearchSvg from "../../../assets/icons/search.svg";
+import PlaySvg from "../../../assets/icons/play.svg";
+import PauseSvg from "../../../assets/icons/pause.svg";
+import ShuffleSvg from "../../../assets/icons/shuffle.svg";
+import RepeatSvg from "../../../assets/icons/repeat.svg";
+import ShareSvg from "../../../assets/icons/share.svg";
+import PlusSvg from "../../../assets/icons/plus.svg";
+import RadioSvg from "../../../assets/icons/radiobtn.svg";
+import ActiveRadioSvg from "../../../assets/icons/radiobtn_active.svg";
 
 // Constants
 import Footer from "../../components/Footer";
@@ -43,20 +40,23 @@ const LibraryExplore = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView
-      flex={1}
-      width="100%"
-      backgroundColor={COLOR.black}
-    >
-      <ScrollView flex={1}>
-        {/* Header */}
+    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
+      <ScrollView>
         <HStack justifyContent="space-between" paddingX="30px" marginTop="18px">
           <TouchableOpacity onPress={() => navigation.navigate("LibraryScreen", { from: "explore" })} style={{ marginTop: 15 }}>
-            <SvgXml xml={LeftIcon} width={13} height={19} />
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt="left" />
+              :
+              <LeftSvg width="13px" height="19px" />
+            }
           </TouchableOpacity>
           <Text style={styles.pageTitle}>Explore</Text>
           <TouchableOpacity onPress={() => navigation.navigate("SearchExploreScreen")} style={{ marginTop: 13 }}>
-            <SvgXml xml={SearchIcon} width={24} height={24} />
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/search.svg")} width="24px" height="24px" alt="search" />
+              :
+              <SearchSvg width="24px" height="24px" />
+            }
           </TouchableOpacity>
         </HStack>
         {/* Card Image */}
@@ -81,16 +81,34 @@ const LibraryExplore = ({ navigation, route }) => {
             <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={ShuffleIcon} width={49} height={49} />
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/shuffle.svg")} width="49px" height="49px" alt="shuffle" />
+              :
+              <ShuffleSvg width="49px" height="49px" />
+            }
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-            <SvgXml xml={isPaused ? PlayIcon : PauseIcon} width={42} height={42} />
+            {Platform.OS === 'web' ? (
+              isPaused ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt="play" />
+                : <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt="pause" />
+            ) : (
+              isPaused ? <PlaySvg width="42px" height="42px" />
+                : <PauseSvg width="42px" height="42px" />
+            )}
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={RepeatIcon} width={47} height={47} />
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt="repeat" />
+              :
+              <RepeatSvg width="47px" height="47px" />
+            }
           </TouchableOpacity>
           <TouchableOpacity>
-            <SvgXml xml={ShareIcon} width={28} height={32} />
+            {Platform.OS === 'web' ?
+              <Image source={require("../../../assets/icons/share.svg")} width="28px" height="32px" alt="share" />
+              :
+              <ShareSvg width="28px" height="32px" />
+            }
           </TouchableOpacity>
         </HStack>
         {/* Music List */}
@@ -100,7 +118,11 @@ const LibraryExplore = ({ navigation, route }) => {
               <TouchableOpacity>
                 <HStack space={2} alignItems="center">
                   <Box style={styles.add}>
-                    <SvgXml xml={PlusIcon} width={28} height={28} />
+                    {Platform.OS === 'web' ?
+                      <Image source={require("../../../assets/icons/plus.svg")} width="28px" height="28px" alt="plus" />
+                      :
+                      <PlusSvg width="28px" height="28px" />
+                    }
                   </Box>
                   <Text style={styles.title}>Add Songs</Text>
                 </HStack>
@@ -129,10 +151,13 @@ const LibraryExplore = ({ navigation, route }) => {
                 }
                 {route.params.from === "settings" &&
                   <TouchableOpacity onPress={() => deleteList(item.id)}>
-                    <SvgXml
-                      xml={deleteItem.includes(item.id) ? ActiveRadioBtn : RadioBtn}
-                      width={15} height={15}
-                    />
+                    {Platform.OS === 'web' ? (
+                      deleteItem.includes(item.id) ? <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radio" />
+                        : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radio" />
+                    ) : (
+                      deleteItem.includes(item.id) ? <ActiveRadioSvg width="15px" height="15px" />
+                        : <RadioSvg width="15px" height="15px" />
+                    )}
                   </TouchableOpacity>
                 }
               </HStack>

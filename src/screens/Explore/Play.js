@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { Box, HStack, Image, Slider, Stack, Text, VStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { SvgXml } from 'react-native-svg';
 
 // Icons
 import { Entypo } from '@expo/vector-icons';
-import {
-  InfinityIcon, LeftIcon, PauseIcon, PlayIcon, RepeatIcon, ShuffleIcon
-} from '../../constants/icons';
+import InfinitySvg from "../../../assets/icons/infinity.svg";
+import LeftSvg from "../../../assets/icons/left.svg";
+import PlaySvg from "../../../assets/icons/play.svg";
+import PauseSvg from "../../../assets/icons/pause.svg";
+import RepeatSvg from "../../../assets/icons/repeat.svg";
+import ShuffleSvg from "../../../assets/icons/shuffle.svg";
 
 // Constants
 import { COLOR } from '../../constants/Color';
@@ -33,10 +35,12 @@ const Play = ({ navigation, route }) => {
         alt="background"
       />
       <Box style={styles.overlay} />
-      <SafeAreaView flex={1} width="100%">
+      <SafeAreaView style={{ flex: 1, width: "100%" }}>
         <HStack paddingX="30px" marginTop="18px">
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginTop: 15 }}>
-            <SvgXml xml={LeftIcon} width={13} height={19} />
+            {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/left.svg")} width="13px" height="19px" alt='left' />
+              : <LeftSvg width="13px" height="19px" />
+            }
           </TouchableOpacity>
         </HStack>
         <VStack position="absolute" bottom="50px" width="100%" paddingX="26px">
@@ -65,16 +69,28 @@ const Play = ({ navigation, route }) => {
               <Entypo name="dots-three-horizontal" size={22} color={COLOR.primary} />
             </TouchableOpacity>
             <TouchableOpacity>
-              <SvgXml xml={ShuffleIcon} width={49} height={49} />
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/left.svg")} width="49px" height="49px" alt='shuffle' />
+                : <ShuffleSvg width="49px" height="49px" />
+              }
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-              <SvgXml xml={isPaused ? PlayIcon : PauseIcon} width={42} height={42} />
+              {isPaused ? (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt='play' />
+                  : <PlaySvg width="42px" height="42px" />
+              ) : (
+                Platform.OS === 'web' ? <Image source={require("../../../assets/icons/pause.svg")} width="42px" height="42px" alt='pause' />
+                  : <PauseSvg width="42px" height="42px" />
+              )}
             </TouchableOpacity>
             <TouchableOpacity>
-              <SvgXml xml={RepeatIcon} width={47} height={47} />
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/repeat.svg")} width="47px" height="47px" alt='shuffle' />
+                : <RepeatSvg width="47px" height="47px" />
+              }
             </TouchableOpacity>
             <TouchableOpacity>
-              <SvgXml xml={InfinityIcon} width={39} height={39} />
+              {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/infinity.svg")} width="39px" height="39px" alt='shuffle' />
+                : <InfinitySvg width="39px" height="39px" />
+              }
             </TouchableOpacity>
           </HStack>
         </VStack>

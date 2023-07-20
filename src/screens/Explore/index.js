@@ -97,19 +97,29 @@ const genre = [
 
 const Explore = ({ navigation }) => {
   return (
-    <SafeAreaView
-      flex={1}
-      width="100%"
-      backgroundColor={COLOR.black}
-    >
+    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
         <Header navigation={navigation} routeName="ExploreScreen" />
         <VStack justifyContent="space-between" space={10} marginY={5}>
           <HStack justifyContent="space-between" space={2} paddingX={5}>
-            <Box style={{ ...styles.firstCard, backgroundColor: "#3787FF" }}>
+            <Box style={{
+              width: "50%",
+              height: 90,
+              borderRadius: 15,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#3787FF"
+            }}>
               <Text style={styles.cardTitle}>New Release</Text>
             </Box>
-            <Box style={{ ...styles.firstCard, backgroundColor: "#FF6262" }}>
+            <Box style={{
+              width: "50%",
+              height: 90,
+              borderRadius: 15,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#FF6262"
+            }}>
               <Text style={styles.cardTitle}>Charts</Text>
             </Box>
           </HStack>
@@ -122,7 +132,11 @@ const Explore = ({ navigation }) => {
               renderItem={({ item, index }) => {
                 return (
                   <Box style={{
-                    ...styles.featureCard,
+                    width: 180,
+                    height: 151,
+                    borderRadius: 14,
+                    justifyContent: "center",
+                    alignItems: "center",
                     // backgroundColor: "#3787FF",
                     marginLeft: index === 0 ? 20 : 9,
                     marginRight: index === compositions.length - 1 ? 20 : 0,
@@ -157,7 +171,12 @@ const Explore = ({ navigation }) => {
                 return (
                   <TouchableOpacity onPress={() => navigation.navigate("PlayExploreScreen", { artist: item })}>
                     <Box style={{
-                      ...styles.artistCard,
+                      width: 180,
+                      height: 151,
+                      borderRadius: 16,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      paddingHorizontal: 30,
                       marginLeft: index === 0 ? 20 : 9,
                       marginRight: index === artists.length - 1 ? 20 : 0,
                     }}>
@@ -187,7 +206,12 @@ const Explore = ({ navigation }) => {
               renderItem={({ item, index }) => {
                 return (
                   <Box style={{
-                    ...styles.producerCard,
+                    width: 180,
+                    height: 151,
+                    borderRadius: 14,
+                    backgroundColor: "#00D1FF",
+                    justifyContent: "center",
+                    alignItems: "center",
                     marginLeft: index === 0 ? 20 : 9,
                     marginRight: index === artists.length - 1 ? 20 : 0,
                   }}>
@@ -206,7 +230,12 @@ const Explore = ({ navigation }) => {
               renderItem={({ item, index }) => {
                 return (
                   <Box style={{
-                    ...styles.producerCard,
+                    width: 180,
+                    height: 151,
+                    borderRadius: 14,
+                    backgroundColor: "#00D1FF",
+                    justifyContent: "center",
+                    alignItems: "center",
                     backgroundColor: "#9EFF00CC",
                     marginLeft: index === 0 ? 20 : 9,
                     marginRight: index === artists.length - 1 ? 20 : 0,
@@ -225,13 +254,6 @@ const Explore = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  firstCard: {
-    width: "50%",
-    height: 90,
-    borderRadius: 15,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   cardTitle: {
     fontFamily: "Archivo-Bold",
     fontSize: 15,
@@ -245,35 +267,12 @@ const styles = StyleSheet.create({
     color: COLOR.white,
     textAlign: "center",
   },
-  featureCard: {
-    width: 180,
-    height: 151,
-    borderRadius: 14,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  artistCard: {
-    width: 180,
-    height: 151,
-    borderRadius: 16,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 30,
-  },
   cardImage: {
     position: "absolute",
     width: 180,
     height: 151,
     overflow: "hidden",
   },
-  producerCard: {
-    width: 180,
-    height: 151,
-    borderRadius: 14,
-    backgroundColor: "#00D1FF",
-    justifyContent: "center",
-    alignItems: "center",
-  }
 });
 
 export default Explore;

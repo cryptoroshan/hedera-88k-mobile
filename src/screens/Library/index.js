@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Avatar, Box, HStack, Image, Text, VStack, PresenceTransition, Input, Stack } from "native-base";
-import { ScrollView, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { ScrollView, StyleSheet, Dimensions, TouchableOpacity, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SvgXml } from "react-native-svg";
 
 // Icons
-import { ActiveRadioBtn, PlusIcon, RadioBtn, SearchIcon, LeftChatIcon } from "../../constants/icons";
+import SearchSvg from "../../../assets/icons/search.svg";
+import PlusSvg from "../../../assets/icons/plus.svg";
+import ChatSvg from "../../../assets/icons/chat-left.svg";
+import RadioSvg from "../../../assets/icons/radiobtn.svg";
+import ActiveRadioSvg from "../../../assets/icons/radiobtn_active.svg";
 
 // Constants
 import { COLOR } from "../../constants/Color";
@@ -37,16 +40,25 @@ const Library = ({ navigation, route }) => {
         <HStack justifyContent="space-between" width={width} marginTop={3} paddingX="25px">
           <HStack space={6} alignItems="center">
             <TouchableOpacity onPress={() => setSearchOpened(!searchOpened)}>
-              <SvgXml xml={SearchIcon} width={23} height={24} />
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/search.svg")} width="23px" height="24px" alt="search" />
+                : <SearchSvg width="23px" height="24px" />
+              }
             </TouchableOpacity>
             <TouchableOpacity>
-              <SvgXml xml={PlusIcon} width={18} height={18} />
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/plus.svg")} width="18px" height="18px" alt="search" />
+                : <PlusSvg width="18px" height="18px" />
+              }
             </TouchableOpacity>
           </HStack>
           <Text style={styles.pageTitle}>Library</Text>
           <HStack space={4} alignItems="center">
             <TouchableOpacity style={{ width: 42, height: 42, overflow: 'hidden' }}>
-              <SvgXml xml={LeftChatIcon} width={42} height={42} />
+              {Platform.OS === 'web' ?
+                <Image source={require("../../../assets/icons/chat-left.svg")} width="42px" height="42px" alt="search" />
+                : <ChatSvg width="42px" height="42px" />
+              }
             </TouchableOpacity>
             <TouchableOpacity>
               <Avatar
@@ -100,10 +112,15 @@ const Library = ({ navigation, route }) => {
                   </HStack>
                   {route.params && route.params.from === "settings" &&
                     <TouchableOpacity onPress={() => addList(item.id)}>
-                      <SvgXml
-                        xml={addItems.includes(item.id) ? ActiveRadioBtn : RadioBtn}
-                        width={15} height={15}
-                      />
+                      {Platform.OS === 'web' ? (
+                        addItems.includes(item.id) ?
+                          <Image source={require("../../../assets/icons/radiobtn_active.svg")} width="15px" height="15px" alt="radiobtn" />
+                          : <Image source={require("../../../assets/icons/radiobtn.svg")} width="15px" height="15px" alt="radiobtn" />
+                      ) : (
+                        addItems.includes(item.id) ?
+                          <RadioSvg width="15px" height="15px" />
+                          : <ActiveRadioSvg width="15px" height="15px" />
+                      )}
                     </TouchableOpacity>
                   }
                 </HStack>

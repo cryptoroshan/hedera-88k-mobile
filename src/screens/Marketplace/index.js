@@ -28,16 +28,39 @@ const Marketplace = ({ navigation }) => {
           setSelectedBeats(null);
           setSelectedBeatItem(null);
         }}
-        style={{ ...styles.cardContainer, backgroundColor: COLOR.yellow, zIndex: 99 }}
+        style={{
+          width: 135,
+          height: 150,
+          paddingHorizontal: 3,
+          paddingVertical: 3,
+          borderWidth: 1,
+          borderColor: COLOR.gray3,
+          borderRadius: 12,
+          marginLeft: 15,
+          backgroundColor: COLOR.yellow, zIndex: 99
+        }}
       >
         <Stack width="100%" height={100} overflow="hidden">
           <Image source={selectedBeats.image} width="100%" height="100%" borderRadius="10px" alt={selectedBeats.name} />
         </Stack>
         <Stack style={{ marginTop: 10 }}>
-          <Text style={styles.cardName} numberOfLines={1}>
+          <Text style={{
+            fontFamily: "Archivo-SemiBold",
+            fontSize: 12,
+            lineHeight: 16,
+            textAlign: "center",
+            textTransform: "capitalize",
+          }} numberOfLines={1}>
             {selectedBeats.name}
           </Text>
-          <Text style={styles.cardTitle}>
+          <Text style={{
+            fontFamily: "Archivo",
+            fontSize: 8,
+            lineHeight: 9,
+            textAlign: "center",
+            letterSpacing: 3,
+            textTransform: "uppercase"
+          }}>
             beats
           </Text>
         </Stack>
@@ -54,7 +77,14 @@ const Marketplace = ({ navigation }) => {
                     onPress={() => item.id === selectedBeatItem?.id ? setSelectedBeatItem(null) : setSelectedBeatItem(item)}
                   >
                     <Box style={{
-                      ...styles.beatCardContainer,
+                      width: width / 4,
+                      height: 73,
+                      paddingHorizontal: 2,
+                      paddingVertical: 2,
+                      borderWidth: 1,
+                      borderColor: COLOR.gray3,
+                      borderRadius: 8,
+                      marginRight: 4,
                       marginLeft: index === 0 ? 10 : 0,
                       backgroundColor: item.id === selectedBeatItem?.id ? COLOR.yellow : COLOR.black
                     }}>
@@ -75,7 +105,14 @@ const Marketplace = ({ navigation }) => {
                       {
                         item.id === selectedBeatItem?.id &&
                         <Stack>
-                          <Text style={{ ...styles.cardTitle, fontSize: 6, lineHeight: 11, color: COLOR.black }}>
+                          <Text style={{
+                            fontFamily: "Archivo",
+                            fontSize: 8,
+                            lineHeight: 9,
+                            textAlign: "center",
+                            letterSpacing: 3,
+                            textTransform: "uppercase", fontSize: 6, lineHeight: 11, color: COLOR.black
+                          }}>
                             beat
                           </Text>
                           <Text
@@ -104,7 +141,14 @@ const Marketplace = ({ navigation }) => {
                     onPress={() => item.id === selectedBeatItem?.id ? setSelectedBeatItem(null) : setSelectedBeatItem(item)}
                   >
                     <Box style={{
-                      ...styles.beatCardContainer,
+                      width: width / 4,
+                      height: 73,
+                      paddingHorizontal: 2,
+                      paddingVertical: 2,
+                      borderWidth: 1,
+                      borderColor: COLOR.gray3,
+                      borderRadius: 8,
+                      marginRight: 4,
                       marginLeft: index === 1 ? 10 : 0,
                       backgroundColor: item.id === selectedBeatItem?.id ? COLOR.yellow : COLOR.black
                     }}>
@@ -125,7 +169,14 @@ const Marketplace = ({ navigation }) => {
                       {
                         item.id === selectedBeatItem?.id &&
                         <Stack>
-                          <Text style={{ ...styles.cardTitle, fontSize: 6, lineHeight: 11, color: COLOR.black }}>
+                          <Text style={{
+                            fontFamily: "Archivo",
+                            fontSize: 8,
+                            lineHeight: 9,
+                            textAlign: "center",
+                            letterSpacing: 3,
+                            textTransform: "uppercase", fontSize: 6, lineHeight: 11, color: COLOR.black
+                          }}>
                             beat
                           </Text>
                           <Text fontFamily="Archivo-SemiBold" fontSize={9} numberOfLines={2} textAlign="center"
@@ -168,7 +219,7 @@ const Marketplace = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView flex={1} backgroundColor={COLOR.black}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
         <Header navigation={navigation} routeName="MarketplaceScreen" />
         <Stack style={{ width: "100%" }}>
@@ -185,7 +236,14 @@ const Marketplace = ({ navigation }) => {
                   onPress={() => item.id === selectedVoice?.id ? setSelectedVoice(null) : setSelectedVoice(item)}
                 >
                   <Box style={{
-                    ...styles.cardContainer,
+                    width: 135,
+                    height: 150,
+                    paddingHorizontal: 3,
+                    paddingVertical: 3,
+                    borderWidth: 1,
+                    borderColor: COLOR.gray3,
+                    borderRadius: 12,
+                    marginLeft: 15,
                     marginRight: index === VoicesData.length - 1 ? 15 : 0,
                     backgroundColor: (item.id === selectedVoice?.id) ? COLOR.yellow : COLOR.black
                   }}>
@@ -194,16 +252,37 @@ const Marketplace = ({ navigation }) => {
                     </Stack>
                     <Stack style={{ marginTop: item.id === selectedVoice?.id ? 30 : 10 }}>
                       <Text numberOfLines={1}
-                        style={{ ...styles.cardName, color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white }}
+                        style={{
+                          fontFamily: "Archivo-SemiBold",
+                          fontSize: 12,
+                          lineHeight: 16,
+                          textAlign: "center",
+                          textTransform: "capitalize",
+                          color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
+                        }}
                       >
                         {item.name}
                       </Text>
-                      <Text style={{ ...styles.cardTitle, color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white }}>
+                      <Text style={{
+                        fontFamily: "Archivo",
+                        fontSize: 8,
+                        lineHeight: 9,
+                        textAlign: "center",
+                        letterSpacing: 3,
+                        textTransform: "uppercase", color: item.id === selectedVoice?.id ? COLOR.black : COLOR.white
+                      }}>
                         voice
                       </Text>
                     </Stack>
                     {item.id === selectedVoice?.id &&
-                      <Text style={{ ...styles.cardName, color: COLOR.black, marginTop: 20 }}>
+                      <Text style={{
+                        fontFamily: "Archivo-SemiBold",
+                        fontSize: 12,
+                        lineHeight: 16,
+                        textAlign: "center",
+                        textTransform: "capitalize",
+                        color: COLOR.black, marginTop: 20
+                      }}>
                         50% Royalty Off Streams
                       </Text>
                     }
@@ -229,7 +308,14 @@ const Marketplace = ({ navigation }) => {
                   return (
                     <TouchableOpacity key={`${index}-beats`} onPress={() => setSelectedBeats(item)}>
                       <Box style={{
-                        ...styles.cardContainer,
+                        width: 135,
+                        height: 150,
+                        paddingHorizontal: 3,
+                        paddingVertical: 3,
+                        borderWidth: 1,
+                        borderColor: COLOR.gray3,
+                        borderRadius: 12,
+                        marginLeft: 15,
                         marginRight: index === BeatsData.length - 1 ? 15 : 0,
                         backgroundColor: (item.id === selectedBeats?.id) ? COLOR.yellow : COLOR.black
                       }}>
@@ -238,11 +324,25 @@ const Marketplace = ({ navigation }) => {
                         </Stack>
                         <Stack style={{ marginTop: 10 }}>
                           <Text numberOfLines={1}
-                            style={{ ...styles.cardName, color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white }}
+                            style={{
+                              fontFamily: "Archivo-SemiBold",
+                              fontSize: 12,
+                              lineHeight: 16,
+                              textAlign: "center",
+                              textTransform: "capitalize",
+                              color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
+                            }}
                           >
                             {item.name}
                           </Text>
-                          <Text style={{ ...styles.cardTitle, color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white }}>
+                          <Text style={{
+                            fontFamily: "Archivo",
+                            fontSize: 8,
+                            lineHeight: 9,
+                            textAlign: "center",
+                            letterSpacing: 3,
+                            textTransform: "uppercase", color: item.id === selectedBeats?.id ? COLOR.black : COLOR.white
+                          }}>
                             beats
                           </Text>
                         </Stack>
@@ -267,7 +367,14 @@ const Marketplace = ({ navigation }) => {
                   onPress={() => item.id === selectedSong?.id ? setSelectedSong(null) : setSelectedSong(item)}
                 >
                   <Box style={{
-                    ...styles.cardContainer,
+                    width: 135,
+                    height: 150,
+                    paddingHorizontal: 3,
+                    paddingVertical: 3,
+                    borderWidth: 1,
+                    borderColor: COLOR.gray3,
+                    borderRadius: 12,
+                    marginLeft: 15,
                     height: 180,
                     marginRight: index === SongsData.length - 1 ? 15 : 0,
                     backgroundColor: (item.id === selectedSong?.id) ? COLOR.yellow : COLOR.black
@@ -278,7 +385,10 @@ const Marketplace = ({ navigation }) => {
                     <Stack style={{ marginTop: item.id === selectedSong?.id ? 30 : 15 }}>
                       <Text numberOfLines={1}
                         style={{
-                          ...styles.singerName,
+                          fontFamily: "Archivo-SemiBold",
+                          lineHeight: 16,
+                          textAlign: "center",
+                          letterSpacing: -0.4,
                           color: item.id === selectedSong?.id ? COLOR.black : COLOR.white,
                           fontSize: item.id === selectedSong?.id ? 8 : 10,
                           textTransform: item.id === selectedSong?.id ? "uppercase" : "capitalize"
@@ -287,16 +397,38 @@ const Marketplace = ({ navigation }) => {
                         {item.name}
                       </Text>
                       <Text numberOfLines={1}
-                        style={{ ...styles.songTitle, color: item.id === selectedSong?.id ? COLOR.black : COLOR.white }}
+                        style={{
+                          fontFamily: "Archivo-SemiBold",
+                          fontSize: 14,
+                          lineHeight: 20,
+                          textAlign: "center",
+                          textTransform: "capitalize",
+                          color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
+                        }}
                       >
                         {item.title}
                       </Text>
-                      <Text style={{ ...styles.cardType, color: item.id === selectedSong?.id ? COLOR.black : COLOR.white }}>
+                      <Text style={{
+                        fontFamily: "Archivo",
+                        fontSize: 8,
+                        lineHeight: 10,
+                        textAlign: "center",
+                        letterSpacing: 3,
+                        textTransform: "uppercase",
+                        color: item.id === selectedSong?.id ? COLOR.black : COLOR.white
+                      }}>
                         song
                       </Text>
                     </Stack>
                     {item.id === selectedSong?.id &&
-                      <Text style={{ ...styles.cardName, color: COLOR.black, marginTop: 20 }}>
+                      <Text style={{
+                        fontFamily: "Archivo-SemiBold",
+                        fontSize: 12,
+                        lineHeight: 16,
+                        textAlign: "center",
+                        textTransform: "capitalize",
+                        color: COLOR.black, marginTop: 20
+                      }}>
                         25% Royalty Off Streams
                       </Text>
                     }
@@ -315,7 +447,7 @@ const Marketplace = ({ navigation }) => {
         </Center>
       </ScrollView>
       <Footer navigation={navigation} routeName="HomeScreen" />
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
@@ -327,16 +459,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     textDecorationLine: "underline",
   },
-  cardContainer: {
-    width: width / 3,
-    height: 150,
-    paddingHorizontal: 3,
-    paddingVertical: 3,
-    borderWidth: 1,
-    borderColor: COLOR.gray3,
-    borderRadius: 12,
-    marginLeft: 15,
-  },
   cardImage: {
     width: "100%",
     height: 100,
@@ -346,52 +468,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 20,
     overflow: "hidden",
-  },
-  cardName: {
-    fontFamily: "Archivo-SemiBold",
-    fontSize: 12,
-    lineHeight: 16,
-    textAlign: "center",
-    textTransform: "capitalize",
-  },
-  cardTitle: {
-    fontFamily: "Archivo",
-    fontSize: 8,
-    lineHeight: 9,
-    textAlign: "center",
-    letterSpacing: 3,
-    textTransform: "uppercase"
-  },
-  beatCardContainer: {
-    width: width / 4,
-    height: 73,
-    paddingHorizontal: 2,
-    paddingVertical: 2,
-    borderWidth: 1,
-    borderColor: COLOR.gray3,
-    borderRadius: 8,
-    marginRight: 4,
-  },
-  singerName: {
-    fontFamily: "Archivo-SemiBold",
-    lineHeight: 16,
-    textAlign: "center",
-    letterSpacing: -0.4,
-  },
-  songTitle: {
-    fontFamily: "Archivo-SemiBold",
-    fontSize: 14,
-    lineHeight: 20,
-    textAlign: "center",
-    textTransform: "capitalize",
-  },
-  cardType: {
-    fontFamily: "Archivo",
-    fontSize: 8,
-    lineHeight: 10,
-    textAlign: "center",
-    letterSpacing: 3,
-    textTransform: "uppercase"
   },
   createBtn: {
     width: "35%",

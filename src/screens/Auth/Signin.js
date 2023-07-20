@@ -26,7 +26,6 @@ const SignIn = ({ navigation }) => {
         username: user_name,
         password: password
     };
-    console.log(env.SERVER_URL)
     const _res = await postRequest(env.SERVER_URL + "/api/auth/signin", _postData);
     if (!_res) {
         Alert.alert("Error", "Something wrong with server!");
@@ -41,8 +40,8 @@ const SignIn = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView flex={1} backgroundColor={COLOR.black}>
-      <ScrollView flex={1}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
+      <ScrollView>
         <Stack marginTop={5} paddingLeft={"36px"}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <AntDesign name="left" size={20} color={COLOR.white} />

@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { HStack, Text, View } from "native-base";
-import { SvgXml } from 'react-native-svg';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { HStack, Text, View, Image } from "native-base";
 
 // Icons
-import { LeftChatIcon } from '../../../../constants/icons';
+import ChatSvg from "../../../../../assets/icons/chat-left.svg";
 
 // Constants
 import { COLOR } from '../../../../constants/Color';
@@ -68,7 +67,9 @@ const TabBar = ({ tabName, setTabName }) => {
         onPress={() => setTabName("message")}
         style={{ width: 42, height: 42, overflow: 'hidden' }}
       >
-        <SvgXml xml={LeftChatIcon} width={42} height={42} />
+        {Platform.OS === 'web' ? <Image source={require("../../../../../assets/icons/chat-left.svg")} width="42px" height="42px" alt="plus" />
+          : <ChatSvg width="42px" height="42px" />
+        }
       </TouchableOpacity>
     </HStack>
   );

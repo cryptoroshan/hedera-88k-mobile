@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { TouchableOpacity, Dimensions } from "react-native";
+import { TouchableOpacity, Dimensions, Platform } from "react-native";
 import {
   Box, HStack, Image, Stack, Text, VStack, View, PresenceTransition, FlatList, Progress
 } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SvgXml } from "react-native-svg";
 
 // Icons
-import {
-  BookMarkIcon, CutIcon, InfinityIcon, MessageIcon, PauseIcon, PlayIcon, RightChatIcon, ShareIcon, WalletIcon
-} from "../../constants/icons";
+import PlaySvg from "../../../assets/icons/play.svg";
+import PauseSvg from "../../../assets/icons/pause.svg";
+import ChatSvg from "../../../assets/icons/chat-right.svg";
+import BookmarkSvg from "../../../assets/icons/bookmark.svg";
+import CutSvg from "../../../assets/icons/cut.svg";
+import WalletSvg from "../../../assets/icons/wallet.svg";
+import MessageSvg from "../../../assets/icons/message.svg";
 
 // Components
 import Header from "../../components/Header";
@@ -33,11 +36,17 @@ const Home = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView flex={1} backgroundColor={COLOR.black}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
         {/* Play & Pause Button */}
         <Stack position="absolute" w="100%" h={height} justifyContent="center" alignItems="center">
           <TouchableOpacity onPress={() => setPlayMedia(!playMedia)} style={{ marginBottom: 50 }}>
-            <SvgXml xml={!playMedia ? PlayIcon : PauseIcon} width={57} height={57} />
+            {Platform.OS === 'web' ? (
+              playMedia ? <Image source={require("../../../assets/icons/pause.svg")} width={57} height={57} alt="pause" />
+                : <Image source={require("../../../assets/icons/play.svg")} width={57} height={57} alt="play" />
+            ) : (
+              playMedia ? <PauseSvg width={57} height={57} />
+                : <PlaySvg width={57} height={57} />
+            )}
           </TouchableOpacity>
         </Stack>
         {/* Header */}
@@ -89,7 +98,7 @@ const Home = ({ navigation }) => {
           <HStack justifyContent="space-between">
             <HStack bottom={0} position="absolute">
               <Stack mb={8}>
-                <Text fontFamily="Archivo-Bold" fontSize={30} color={COLOR.white}>Best I Ever Had</Text>
+                <Text fontFamily="Archivo-Bold" fontSize={30} color={COLOR.white} textTransform="capitalize">Happier Than Ever</Text>
                 <HStack alignItems="center">
                   <Text fontFamily="Archivo-Bold" fontSize={17} color={COLOR.white}>Boi-1da  |  </Text>
                   <Text fontFamily="Archivo" fontSize={10} letterSpacing={3} color={COLOR.gray}>BEAT</Text>
@@ -97,7 +106,6 @@ const Home = ({ navigation }) => {
               </Stack>
             </HStack>
             <VStack alignItems="center">
-              {/* Avatar */}
               <TouchableOpacity onPress={() => navigation.navigate("CreatorProfileScreen")}>
                 <View style={{ width: 49, height: 49, borderRadius: 50, overflow: 'hidden', marginBottom: 10 }}>
                   <Image
@@ -112,33 +120,41 @@ const Home = ({ navigation }) => {
                   </View>
                 </HStack>
               </TouchableOpacity>
-              {/* Chat */}
               <TouchableOpacity style={{ marginBottom: 10 }}>
-                <SvgXml xml={RightChatIcon} />
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/chat-right.svg")} width={54} height={54} alt="chat" />
+                  : <ChatSvg />
+                }
               </TouchableOpacity>
-              {/* BookMark */}
               <TouchableOpacity onPress={() => setOpenBookMark(true)} style={{ marginBottom: 18 }}>
-                <SvgXml xml={BookMarkIcon} />
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/bookmark.svg")} width={23} height={23.5} alt="bookmark" />
+                  : <BookmarkSvg />
+                }
               </TouchableOpacity>
-              {/* Share */}
               <TouchableOpacity style={{ marginBottom: 5 }}>
-                <SvgXml xml={CutIcon} />
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/cut.svg")} width="32px" height="32px" alt="cut" />
+                  : <CutSvg />
+                }
               </TouchableOpacity>
-              {/* Collab */}
               <TouchableOpacity onPress={() => navigation.navigate("MarketplaceScreen")} style={{ marginBottom: 5 }}>
-                <SvgXml xml={WalletIcon} />
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/wallet.svg")} width="59px" height="59px" alt="cut" />
+                  : <WalletSvg />
+                }
               </TouchableOpacity>
-              {/* Message */}
               <TouchableOpacity onPress={() => setOpenDM(true)} style={{ marginBottom: 20 }}>
-                <SvgXml xml={MessageIcon} />
+                {Platform.OS === 'web' ?
+                  <Image source={require("../../../assets/icons/message.svg")} width="30px" height="30px" alt="cut" />
+                  : <MessageSvg />
+                }
               </TouchableOpacity>
             </VStack>
           </HStack>
           <Progress bg="coolGray.500" _filledTrack={{ bg: "light.50" }} borderWidth={3.3} value={25} />
         </Box>
-        {/* Direct Message ActionSheet */}
         <DirectMessage isOpen={openDM} onClose={() => setOpenDM(false)} />
-        {/* BookMark ActionSheet */}
         <BookMark isOpen={openBookMark} onClose={() => setOpenBookMark(false)} />
       </SafeAreaView>
       <Footer navigation={navigation} routeName="HomeScreen" />

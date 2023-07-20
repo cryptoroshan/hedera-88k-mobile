@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, HStack, Input, Text, VStack } from "native-base";
+import { Box, Collapse, HStack, Input, Text, VStack } from "native-base";
 import { ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
@@ -43,11 +43,7 @@ const SearchExplore = ({ navigation }) => {
   const [searchText, setSearchText] = useState(null);
 
   return (
-    <SafeAreaView
-      flex={1}
-      width="100%"
-      backgroundColor={COLOR.black}
-    >
+    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: COLOR.black }}>
       <ScrollView flex={1}>
         {/* Header */}
         <HStack justifyContent="space-between" alignItems="center" paddingX="30px" marginTop={5} space={3}>
