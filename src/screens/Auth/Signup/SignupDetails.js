@@ -13,12 +13,16 @@ import RadioBtnSvg from "../../../../assets/icons/radiobtn.svg";
 import ActiveRadioBtnSvg from "../../../../assets/icons/radiobtn_active.svg";
 import CameraSvg from "../../../../assets/icons/camera.svg";
 
+import { postRequest } from "../../../components/apiRequests";
+import * as env from "../../../../env";
+
 // Constants
 import { COLOR } from "../../../constants/Color";
 
 const { width } = Dimensions.get("window");
 
-const SignupDetail = ({ navigation }) => {
+const SignupDetail = ({ navigation, route }) => {
+  const { data } = route.params;
 
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -28,6 +32,32 @@ const SignupDetail = ({ navigation }) => {
   const [gender, setGender] = useState(null);
   const [language, setLanguage] = useState(null);
   const [isAccepted, setIsAccepted] = useState(false);
+
+  const onHandleSignup = async () => {
+    const _postData = {
+      role: data.role,
+      username: data.username,
+      password: data.password,
+      name: name,
+      email: email,
+      country: country,
+      state: state,
+      city: city,
+      gender: gender,
+      preferred_language: language
+    };
+
+    const _res = await postRequest(env.SERVER_URL + "/api/auth/signup", _postData);
+    if (!_res) {
+      Alert.alert("Error", "Something wrong with server!");
+      return;
+    }
+    if (!_res.result) {
+      Alert.alert("Error", _res.error);
+      return;
+    }
+    navigation.navigate("PayoutSetupScreen")
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLOR.black }}>
@@ -249,8 +279,9 @@ const SignupDetail = ({ navigation }) => {
           </TouchableOpacity>
           <Stack alignItems="center">
             <TouchableOpacity
-              onPress={() => navigation.navigate("PayoutSetupScreen")}
+              onPress={() => onHandleSignup()}
               style={styles.submit}
+              disabled={isAccepted ? false : true}
             >
               <Text style={{ fontFamily: "Archivo-Bold", color: COLOR.black, textTransform: "uppercase" }}>
                 Next

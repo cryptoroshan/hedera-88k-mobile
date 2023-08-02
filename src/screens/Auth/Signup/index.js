@@ -18,20 +18,23 @@ const SignUp = ({ navigation }) => {
   const [showPass, setShowPass] = useState(false);
 
   const onHandleSignup = async () => {
-    const _postData = {
+    const _data = {
+      role: selectedCard,
       username: username,
       password: password
     };
-    const _res = await postRequest(env.SERVER_URL + "/api/auth/signup", _postData);
-    if (!_res) {
-      Alert.alert("Error", "Something wrong with server!");
-      return;
-    }
-    if (!_res.result) {
-      Alert.alert("Error", _res.error);
-      return;
-    }
-    navigation.navigate("SignUpDetailScreen")
+    navigation.navigate("SignUpDetailScreen", { data: _data });
+
+    // const _res = await postRequest(env.SERVER_URL + "/api/auth/signup", _postData);
+    // if (!_res) {
+    //   Alert.alert("Error", "Something wrong with server!");
+    //   return;
+    // }
+    // if (!_res.result) {
+    //   Alert.alert("Error", _res.error);
+    //   return;
+    // }
+    // navigation.navigate("SignUpDetailScreen")
   }
 
   return (

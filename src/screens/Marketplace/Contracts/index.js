@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { Center, HStack, Image, Stack, Text, VStack } from "native-base";
+import { Box, Center, HStack, Image, Stack, Text, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // Constants
@@ -89,33 +89,33 @@ const Contracts = ({ navigation, route }) => {
               </Text>
             }
             {data.length === 2 &&
-              <>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+              <Box>
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using all of selected items, you could earn 33 % of its streaming revenue.`}
                 </Text>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using  only 1 ${data[0].type} only, you could earn 50% of its streaming revenue.`}
                 </Text>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using  1 ${data[1].type} only, you could earn 50% of its streaming revenue.`}
                 </Text>
-              </>
+              </Box>
             }
             {data.length === 3 &&
-              <>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+              <Box>
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using all of selected items, you could earn 25 % of its streaming revenue.`}
                 </Text>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using  only 1 voice only, you could earn 50% of its streaming revenue.`}
                 </Text>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using  1 beat only, you could earn 50% of its streaming revenue.`}
                 </Text>
-                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px">
+                <Text fontFamily="Archivo" color={COLOR.white} fontSize={12} textAlign="center" lineHeight="20px" marginTop={15}>
                   {`Create a song using  1 song only, you could earn 50% of its streaming revenue.`}
                 </Text>
-              </>
+              </Box>
             }
             <VStack space={5} marginTop={6}>
               <TouchableOpacity style={styles.btn}>

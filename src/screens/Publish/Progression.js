@@ -107,8 +107,17 @@ const Progression = ({ navigation }) => {
             <VStack>
               <Stack marginBottom="12px">
                 <HStack space={5}>
-                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
-                    : <ActiveRadioIconSvg width="22px" height="22px" />
+                  {Platform.OS === 'web' && voiceScanSuccess === false &&
+                    <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && voiceScanSuccess === false &&
+                    <RadioIconSvg width="22px" height="22px" />
+                  }
+                  {Platform.OS === 'web' && voiceScanSuccess === true &&
+                    <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && voiceScanSuccess === true &&
+                    <ActiveRadioIconSvg width="22px" height="22px" />
                   }
                   <Stack>
                     <Text style={styles.lineTitle}>Voices scan complete</Text>
@@ -119,8 +128,17 @@ const Progression = ({ navigation }) => {
               </Stack>
               <Stack marginBottom="12px">
                 <HStack space={5}>
-                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                    : <RadioIconSvg width="22px" height="22px" />
+                  {Platform.OS === 'web' && beatScanSuccess === false &&
+                    <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && beatScanSuccess === false &&
+                    <RadioIconSvg width="22px" height="22px" />
+                  }
+                  {Platform.OS === 'web' && beatScanSuccess === true &&
+                    <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && beatScanSuccess === true &&
+                    <ActiveRadioIconSvg width="22px" height="22px" />
                   }
                   <Stack>
                     <Text style={styles.lineTitle}>Beats scan complete</Text>
@@ -131,8 +149,17 @@ const Progression = ({ navigation }) => {
               </Stack>
               <Stack marginBottom="12px">
                 <HStack space={5}>
-                  {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                    : <RadioIconSvg width="22px" height="22px" />
+                  {Platform.OS === 'web' && lyricScanSuccess === false &&
+                    <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && lyricScanSuccess === false &&
+                    <RadioIconSvg width="22px" height="22px" />
+                  }
+                  {Platform.OS === 'web' && lyricScanSuccess === true &&
+                    <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
+                  }
+                  {Platform.OS !== 'web' && lyricScanSuccess === true &&
+                    <ActiveRadioIconSvg width="22px" height="22px" />
                   }
                   <Stack>
                     <Text style={styles.lineTitle}>Lyrics scan complete</Text>
@@ -142,8 +169,17 @@ const Progression = ({ navigation }) => {
                 <Divider orientation="vertical" height="40px" mt="-9px" mx="11px" _light={{ bg: "muted.400" }} _dark={{ bg: "muted.50" }} />
               </Stack>
               <HStack space={5}>
-                {Platform.OS === 'web' ? <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
-                  : <RadioIconSvg width="22px" height="22px" />
+                {Platform.OS === 'web' && smartContractGenerateSuccess === false &&
+                  <Image source={require("../../../assets/icons/radioIcon.svg")} width="22px" height="22px" alt="radio" />
+                }
+                {Platform.OS !== 'web' && smartContractGenerateSuccess === false &&
+                  <RadioIconSvg width="22px" height="22px" />
+                }
+                {Platform.OS === 'web' && smartContractGenerateSuccess === true &&
+                  <Image source={require("../../../assets/icons/radioIcon_active.svg")} width="22px" height="22px" alt="radio" />
+                }
+                {Platform.OS !== 'web' && smartContractGenerateSuccess === true &&
+                  <ActiveRadioIconSvg width="22px" height="22px" />
                 }
                 <Text style={styles.lineTitle}>Smart contract generated!</Text>
               </HStack>
@@ -231,7 +267,7 @@ const Progression = ({ navigation }) => {
               <TouchableOpacity style={styles.button}>
                 <Text fontFamily="Archivo-Medium" color={COLOR.black} fontSize={12}>View Terms and Conditions</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("CongradulationsScreen")}>
+              <TouchableOpacity style={styles.button} disabled={ canPublish === true ? false : true } onPress={() => navigation.navigate("CongradulationsScreen")}>
                 <Text fontFamily="Archivo-Bold" color={COLOR.black} fontSize={12}>PUBLISH</Text>
               </TouchableOpacity>
               <TouchableOpacity style={{

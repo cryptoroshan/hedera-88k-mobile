@@ -64,8 +64,8 @@ const SignIn = ({ navigation }) => {
               fontSize={16}
               overflow="hidden"
               type="text"
-              value={username}
-              onChangeText={(text) => setUsername(text)}
+              value={user_name}
+              onChangeText={(text) => setUserName(text)}
             />
           </Stack>
           <Stack>
