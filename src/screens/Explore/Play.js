@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import { Box, HStack, Image, Slider, Stack, Text, VStack } from 'native-base';
+import { Box, HStack, Image, Stack, Text, VStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Audio } from 'expo-av';
+import Slider from '@react-native-community/slider';
 
 // Icons
 import { Entypo } from '@expo/vector-icons';
@@ -21,8 +23,69 @@ import Footer from '../../components/Footer';
 const Play = ({ navigation, route }) => {
   const { music } = route.params;
 
-  const [sliderValue, setSliderValue] = useState(0);
-  const [isPaused, setIsPaused] = useState(true);
+  const [sound, setSound] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playbackPosition, setPlaybackPosition] = useState(0);
+  const [playbackDuration, setPlaybackDuration] = useState(null);
+
+  useEffect(() => {
+    return sound
+      ? () => {
+        sound.unloadAsync();
+      }
+      : undefined;
+  }, [sound]);
+
+  const handlePlayPause = async () => {
+    if (sound === null) {
+      // const { sound } = await Audio.Sound.createAsync(
+      //   require('../../../assets/audio/audio_test.mp3')
+      // );
+      const { sound } = await Audio.Sound.createAsync({ uri: "https://api.brunoailabs.art/api/88k/audio?name=bluegrass" });
+      console.log(sound);
+      setSound(sound);
+      await sound.playAsync();
+      setIsPlaying(true);
+    } else {
+      if (isPlaying) {
+        await sound.pauseAsync();
+      } else {
+        await sound.playAsync();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleSliderSeek = async (value) => {
+    await sound.setPositionAsync(value);
+    setPlaybackPosition(value);
+  };
+
+  const handlePlaybackStatusUpdate = (status) => {
+    if (status.isLoaded) {
+      setPlaybackDuration(status.durationMillis);
+      setPlaybackPosition(status.positionMillis);
+    }
+  };
+
+  useEffect(() => {
+    if (sound !== null) {
+      const interval = setInterval(async () => {
+        const status = await sound.getStatusAsync();
+        handlePlaybackStatusUpdate(status);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [sound]);
+
+  const formatTime = (millis) => {
+    const minutes = Math.floor(millis / 60000);
+    const seconds = ((millis % 60000) / 1000).toFixed(0);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const formattedPosition = formatTime(playbackPosition);
+  const formattedDuration = formatTime(playbackDuration);
 
   return (
     <>
@@ -50,18 +113,17 @@ const Play = ({ navigation, route }) => {
           </Stack>
           <VStack marginTop="10px">
             <Slider
-              colorScheme="#FFFFFF80"
-              defaultValue={sliderValue}
-              onChange={v => setSliderValue(Math.floor(v))}
-            >
-              <Slider.Track bg="#FFFFFF80" size={3}>
-                <Slider.FilledTrack bg={COLOR.primary} />
-              </Slider.Track>
-              <Slider.Thumb borderWidth="0" bg={COLOR.primary} size='2.5' />
-            </Slider>
+              style={{ width: "100%" }}
+              value={playbackPosition}
+              maximumValue={playbackDuration}
+              onSlidingComplete={handleSliderSeek}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#FFFFFF80"
+              thumbTintColor="#F8F8F8"
+            />
             <HStack justifyContent="space-between">
-              <Text fontFamily="Archivo" fontSize={10} color={COLOR.primary}>0:57</Text>
-              <Text fontFamily="Archivo" fontSize={10} color={COLOR.primary}>2:09</Text>
+              <Text fontFamily="Archivo" fontSize={10} color={COLOR.primary}>{formattedPosition}</Text>
+              <Text fontFamily="Archivo" fontSize={10} color={COLOR.primary}>{formattedDuration}</Text>
             </HStack>
           </VStack>
           <HStack justifyContent="space-between" alignItems="center" marginTop="8px">
@@ -73,8 +135,8 @@ const Play = ({ navigation, route }) => {
                 : <ShuffleSvg width="49px" height="49px" />
               }
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setIsPaused(!isPaused)}>
-              {isPaused ? (
+            <TouchableOpacity onPress={handlePlayPause}>
+              {!isPlaying ? (
                 Platform.OS === 'web' ? <Image source={require("../../../assets/icons/play.svg")} width="42px" height="42px" alt='play' />
                   : <PlaySvg width="42px" height="42px" />
               ) : (
