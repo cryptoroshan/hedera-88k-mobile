@@ -135,7 +135,7 @@ const Play = ({ navigation, route }) => {
         handlePlaybackStatusUpdate(status);
         if (status.isPlaying === true) {
           num++;
-          if (num === 10) {
+          if (num === 3) {
             console.log("onTimeUpdate");
             num = 0;
             payHbar();
