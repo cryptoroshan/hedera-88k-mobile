@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Box, HStack, Image, Stack, Text, VStack } from 'native-base';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Audio } from 'expo-av';
 import Slider from '@react-native-community/slider';
+import { useSelector } from 'react-redux';
 
 // Icons
 import { Entypo } from '@expo/vector-icons';
@@ -20,13 +21,29 @@ import { COLOR } from '../../constants/Color';
 // Components
 import Footer from '../../components/Footer';
 
+import { getRequest, postRequest } from "../../components/apiRequests";
+import * as env from "../../../env";
+
+
+let num = 0;
+
 const Play = ({ navigation, route }) => {
   const { music } = route.params;
+  const user = useSelector(state => state.user);
 
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackPosition, setPlaybackPosition] = useState(0);
   const [playbackDuration, setPlaybackDuration] = useState(null);
+  const [voiceUserInfo, setVoiceUserInfo] = useState("");
+  const [beatUserInfo, setBeatUserInfo] = useState("");
+  const [vocalUserInfo, setVocalUserInfo] = useState("");
+
+
+  useEffect(() => {
+    getMusicAsync();
+    getMusicInfo();
+  }, [])
 
   useEffect(() => {
     return sound
@@ -36,16 +53,58 @@ const Play = ({ navigation, route }) => {
       : undefined;
   }, [sound]);
 
+  const getMusicAsync = async () => {
+    const { sound } = await Audio.Sound.createAsync({ uri: "https://api.brunoailabs.art/api/88k/audio?name=" + music.title });
+    setSound(sound);
+    await sound.playAsync();
+    setIsPlaying(true);
+    num = 0;
+  }
+
+  const getMusicInfo = async () => {
+    const _musicInfo = await getRequest(
+      env.SERVER_URL + "/api/88k/get_music_info?music_name=" + music.title
+    );
+    if (!_musicInfo) {
+      Alert.alert("Something wrong with server!");
+      return;
+    }
+    if (!_musicInfo.result) {
+      Alert.alert(_musicInfo.error);
+      return;
+    }
+    setVoiceUserInfo(_musicInfo.data.voiceUserInfo);
+    setBeatUserInfo(_musicInfo.data.beatUserInfo);
+    setVocalUserInfo(_musicInfo.data.vocalUserInfo);
+  };
+
+  const payHbar = async () => {
+    console.log("payHbar");
+    const _res = await postRequest(env.SERVER_URL + "/api/88k/pay_hbar", {
+      username: user.username,
+      voice_user: voiceUserInfo.username,
+      beat_user: beatUserInfo.username,
+      vocal_user: vocalUserInfo.username,
+    });
+    if (!_res) {
+      Alert.alert("Something wrong with server!");
+      return;
+    }
+    if (!_res.result) {
+      Alert.alert(_res.error);
+      return;
+    }
+  };
+
   const handlePlayPause = async () => {
     if (sound === null) {
       // const { sound } = await Audio.Sound.createAsync(
       //   require('../../../assets/audio/audio_test.mp3')
       // );
-      const { sound } = await Audio.Sound.createAsync({ uri: "https://api.brunoailabs.art/api/88k/audio?name=bluegrass" });
-      console.log(sound);
-      setSound(sound);
-      await sound.playAsync();
-      setIsPlaying(true);
+      // const { sound } = await Audio.Sound.createAsync({ uri: "https://api.brunoailabs.art/api/88k/audio?name=" + music.title });
+      // setSound(sound);
+      // await sound.playAsync();
+      // setIsPlaying(true);
     } else {
       if (isPlaying) {
         await sound.pauseAsync();
@@ -72,7 +131,17 @@ const Play = ({ navigation, route }) => {
     if (sound !== null) {
       const interval = setInterval(async () => {
         const status = await sound.getStatusAsync();
+        console.log(status);
         handlePlaybackStatusUpdate(status);
+        console.log(num);
+        if (status.isPlaying === true) {
+          num++;
+          if (num === 10) {
+            console.log("onTimeUpdate");
+            num = 0;
+            payHbar();
+          }
+        }
       }, 1000);
       return () => clearInterval(interval);
     }

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Dimensions, Platform, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Dimensions, Platform, ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { Box, Center, HStack, Image, Stack, Text, VStack } from "native-base";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SvgXml } from "react-native-svg";
@@ -19,13 +19,38 @@ import Footer from "../../components/Footer";
 import { COLOR } from "../../constants/Color";
 import { MusicList } from "../../constants/static";
 
+import { getRequest, postRequest } from "../../components/apiRequests";
+import * as env from "../../../env";
+
+
 const { width } = Dimensions.get("window");
 
 const PlayExplore = ({ navigation, route }) => {
   const { artist } = route.params;
+  console.log(artist);
 
   const [isPaused, setIsPaused] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [musicList, setMusicList] = useState(null);
+
+  useEffect(() => {
+    getMusicList();
+  }, [])
+
+  const getMusicList = async () => {
+    const _musicInfo = await getRequest(
+      env.SERVER_URL + "/api/88k/get_music_list"
+    );
+    if (!_musicInfo) {
+      Alert.alert("Something wrong with server!");
+      return;
+    }
+    if (!_musicInfo.result) {
+      Alert.alert(_musicInfo.error);
+      return;
+    }
+    setMusicList(_musicInfo.data);
+  }
 
   return (
     <>
@@ -93,8 +118,8 @@ const PlayExplore = ({ navigation, route }) => {
           </HStack>
           {/* Music List */}
           <VStack space={4} paddingX="35px" marginY="21px">
-            {
-              MusicList.map((item, index) =>
+            {musicList !== null &&
+              musicList.map((item, index) =>
                 <HStack justifyContent="space-between" alignItems="center" key={index}>
                   <TouchableOpacity onPress={() => setSelectedItem(item)}>
                     <HStack space={2}>
