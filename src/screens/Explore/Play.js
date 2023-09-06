@@ -73,6 +73,7 @@ const Play = ({ navigation, route }) => {
       Alert.alert(_musicInfo.error);
       return;
     }
+    console.log(_musicInfo);
     setVoiceUserInfo(_musicInfo.data.voiceUserInfo);
     setBeatUserInfo(_musicInfo.data.beatUserInfo);
     setVocalUserInfo(_musicInfo.data.vocalUserInfo);
@@ -131,9 +132,7 @@ const Play = ({ navigation, route }) => {
     if (sound !== null) {
       const interval = setInterval(async () => {
         const status = await sound.getStatusAsync();
-        console.log(status);
         handlePlaybackStatusUpdate(status);
-        console.log(num);
         if (status.isPlaying === true) {
           num++;
           if (num === 10) {
