@@ -17,7 +17,6 @@ import HeartSvg from "../../../assets/icons/heart.svg";
 // Constants
 import Footer from "../../components/Footer";
 import { COLOR } from "../../constants/Color";
-import { MusicList } from "../../constants/static";
 
 import { getRequest, postRequest } from "../../components/apiRequests";
 import * as env from "../../../env";
