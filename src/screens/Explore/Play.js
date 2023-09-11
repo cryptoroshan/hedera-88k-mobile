@@ -54,7 +54,7 @@ const Play = ({ navigation, route }) => {
   }, [sound]);
 
   const getMusicAsync = async () => {
-    const { sound } = await Audio.Sound.createAsync({ uri: "https://api.brunoailabs.art/api/88k/audio?name=" + music.title });
+    const { sound } = await Audio.Sound.createAsync({ uri: env.SERVER_URL + "/api/88k/audio?name=" + music.title });
     setSound(sound);
     await sound.playAsync();
     setIsPlaying(true);
